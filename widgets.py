@@ -5,5 +5,6 @@ def Application(*rows):
     return tk.Tk()
 
 class _WidgetFactory:
-    pass
+    def __init__(self, widget_type):
+        self.widget_type = widget_type
         
