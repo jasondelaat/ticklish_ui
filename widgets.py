@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
+import events
 
 WIDGETS = {
     'Button' : ttk.Button,
@@ -8,6 +9,11 @@ WIDGETS = {
 class _Application(tk.Tk):
     def __init__(self):
         super().__init__()
+
+    def get_event_stream(self, event_sequence):
+        stream = events.EventStream()
+        self.bind_all(event_sequence, lambda e: stream.insert(e))
+        return stream
         
 def Application(*rows):
     app = _Application()
