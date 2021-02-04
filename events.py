@@ -17,3 +17,6 @@ class Stream:
 class EventStream(Stream):
     def by_name(self, widget_name):
         return self.filter(lambda e: e.widget.winfo_name() == widget_name)
+
+    def by_class(self, widget_class):
+        return self.filter(lambda e: e.widget.winfo_class() == widget_class)
