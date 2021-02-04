@@ -7,4 +7,8 @@ def Application(*rows):
 class _WidgetFactory:
     def __init__(self, widget_type):
         self.widget_type = widget_type
+
+    def options(self, **kwargs):
+        self.kwargs = kwargs
+        return self
         
