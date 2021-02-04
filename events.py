@@ -14,3 +14,5 @@ class Stream:
         self.children.append(stream)
         return stream
         
+class EventStream(Stream):
+    pass
