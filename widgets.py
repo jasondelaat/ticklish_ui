@@ -13,4 +13,7 @@ class _WidgetFactory:
     def options(self, **kwargs):
         self.kwargs = kwargs
         return self
+
+    def __call__(self, parent):
+        return WIDGETS[self.widget_type](parent, **self.kwargs)
         
