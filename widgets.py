@@ -4,7 +4,12 @@ import tkinter.ttk as ttk
 WIDGETS = {}
 
 def Application(*rows):
-    return tk.Tk()
+    app = tk.Tk()
+    for row in rows:
+        for widget in row:
+            w = widget(app)
+            w.pack()
+    return app
 
 class _WidgetFactory:
     def __init__(self, widget_type):
