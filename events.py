@@ -8,3 +8,9 @@ class EventStream:
         stream = EventStream(predicate, lambda e: e)
         self.children.append(stream)
         return stream
+
+    def map(self, action):
+        stream = EventStream(lambda e: True, action)
+        self.children.append(stream)
+        return stream
+        
