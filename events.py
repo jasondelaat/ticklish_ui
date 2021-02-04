@@ -9,6 +9,12 @@ class Stream:
         self.children.append(stream)
         return stream
 
+    def insert(self, value):
+        if self.predicate(value):
+            self.action(value)
+            for child in self.children:
+                child.insert(value)
+                
     def map(self, action):
         stream = self.__class__(lambda e: True, action)
         self.children.append(stream)
