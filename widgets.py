@@ -5,8 +5,12 @@ WIDGETS = {
     'Button' : ttk.Button,
 }
 
+class _Application(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        
 def Application(*rows):
-    app = tk.Tk()
+    app = _Application()
     for row in rows:
         for widget in row:
             w = widget(app)
