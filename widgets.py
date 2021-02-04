@@ -1,2 +1,5 @@
+import tkinter as tk
+import tkinter.ttk as ttk
+
 def Application(*rows):
-    pass
+    return tk.Tk()
