@@ -1,0 +1,2 @@
+def Application(*rows):
+    pass
