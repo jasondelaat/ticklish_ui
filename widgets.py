@@ -19,9 +19,11 @@ class _Application(tk.Tk):
 def Application(title, *rows):
     app = _Application(title)
     for row in rows:
+        frame = tk.Frame(app)
+        frame.pack()
         for widget in row:
-            w = widget(app)
-            w.pack()
+            w = widget(frame)
+            w.pack(side=tk.LEFT)
     return app
 
 def Button(button_text):
