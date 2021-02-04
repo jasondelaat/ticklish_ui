@@ -1,7 +1,9 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-WIDGETS = {}
+WIDGETS = {
+    'Button' : ttk.Button,
+}
 
 def Application(*rows):
     app = tk.Tk()
@@ -10,6 +12,9 @@ def Application(*rows):
             w = widget(app)
             w.pack()
     return app
+
+def Button(button_text):
+    return _WidgetFactory('Button').options(text=button_text)
 
 class _WidgetFactory:
     def __init__(self, widget_type):
