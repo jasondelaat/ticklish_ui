@@ -7,16 +7,17 @@ WIDGETS = {
 }
 
 class _Application(tk.Tk):
-    def __init__(self):
+    def __init__(self, title):
         super().__init__()
+        self.title(title)
 
     def get_event_stream(self, event_sequence):
         stream = events.EventStream()
         self.bind_all(event_sequence, lambda e: stream.insert(e))
         return stream
         
-def Application(*rows):
-    app = _Application()
+def Application(title, *rows):
+    app = _Application(title)
     for row in rows:
         for widget in row:
             w = widget(app)
