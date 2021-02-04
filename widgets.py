@@ -1,6 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
+WIDGETS = {}
+
 def Application(*rows):
     return tk.Tk()
 
