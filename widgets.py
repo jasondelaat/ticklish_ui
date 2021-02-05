@@ -4,6 +4,8 @@ import events
 
 WIDGETS = {
     'Button' : ttk.Button,
+    'Entry' : ttk.Entry,
+    'Label' : ttk.Label,
 }
 
 class _Application(tk.Tk):
@@ -18,8 +20,10 @@ class _Application(tk.Tk):
         
 def Application(title, *rows):
     app = _Application(title)
+    count = 0
     for row in rows:
-        frame = tk.Frame(app)
+        count += 1
+        frame = tk.Frame(app, name=f'row{count}')
         frame.pack()
         for widget in row:
             w = widget(frame)
@@ -28,6 +32,12 @@ def Application(title, *rows):
 
 def Button(button_text):
     return _WidgetFactory('Button').options(text=button_text)
+
+def Entry():
+    return _WidgetFactory('Entry')
+
+def Label(label_text):
+    return _WidgetFactory('Label').options(text=label_text)
 
 class _WidgetFactory:
     def __init__(self, widget_type):
