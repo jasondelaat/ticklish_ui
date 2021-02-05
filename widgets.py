@@ -24,7 +24,7 @@ def Application(title, *rows):
     for row in rows:
         count += 1
         frame = tk.Frame(app, name=f'row{count}')
-        frame.pack()
+        frame.pack(fill=tk.BOTH)
         for widget in row:
             w = widget(frame)
             w.pack(side=tk.LEFT)
