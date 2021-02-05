@@ -12,6 +12,8 @@ class _Application(tk.Tk):
     def __init__(self, title):
         super().__init__()
         self.title(title)
+        ttk.Style().theme_use('aqua')
+
 
     def get_event_stream(self, event_sequence):
         stream = events.EventStream()
@@ -23,7 +25,7 @@ def Application(title, *rows):
     count = 0
     for row in rows:
         count += 1
-        frame = tk.Frame(app, name=f'row{count}')
+        frame = ttk.Frame(app, name=f'row{count}')
         frame.pack(fill=tk.BOTH)
         for widget in row:
             w = widget(frame)
