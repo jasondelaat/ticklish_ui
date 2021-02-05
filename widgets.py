@@ -20,6 +20,12 @@ class _Application(tk.Tk):
         self.bind_all(event_sequence, lambda e: stream.insert(e))
         return stream
         
+class _Toplevel(tk.Toplevel):
+    def __init__(self, title):
+        super().__init__()
+        self.title(title)
+        ttk.Style().theme_use('aqua')
+
 def Application(title, *rows):
     app = _Application(title)
     count = 0
@@ -31,6 +37,18 @@ def Application(title, *rows):
             w = widget(frame)
             w.pack(side=tk.LEFT)
     return app
+
+def Toplevel(title, *rows):
+    popup = _Toplevel(title)
+    count = 0
+    for row in rows:
+        count += 1
+        frame = ttk.Frame(popup, name=f'row{count}')
+        frame.pack(fill=tk.BOTH)
+        for widget in row:
+            w = widget(frame)
+            w.pack(side=tk.LEFT)
+    return popup
 
 def Button(button_text):
     return _WidgetFactory('Button').options(text=button_text)
