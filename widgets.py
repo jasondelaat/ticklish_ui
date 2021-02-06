@@ -78,3 +78,19 @@ class RadioGroup(_WidgetFactory):
         self.group_name = group_name
         self.radio_options = options
 
+    def __call__(self, parent):
+        group = ttk.Frame(parent, **self.kwargs)
+        group.pack(fill=tk.BOTH)
+        control = tk.StringVar()
+        for option in self.radio_options:
+            button = ttk.Radiobutton(
+                group, value=option, text=option, variable=control,
+                class_=self.group_name, name=f'radio_{option}'
+            )
+            tags = list(button.bindtags())
+            tags[0] = 'TRadiobutton'
+            button.bindtags(tags)
+            button.pack(side=tk.LEFT)
+        control.set(self.radio_options[0])
+        group.variable = control
+        return group
