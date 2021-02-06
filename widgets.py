@@ -13,8 +13,8 @@ class _Application(tk.Tk):
     def __init__(self, title):
         super().__init__()
         self.title(title)
-        ttk.Style().theme_use('aqua')
-
+        self.style = ttk.Style()
+        self.style.theme_use('aqua')
 
     def get_event_stream(self, event_sequence):
         stream = events.EventStream()
@@ -25,7 +25,8 @@ class _Toplevel(tk.Toplevel):
     def __init__(self, title):
         super().__init__()
         self.title(title)
-        ttk.Style().theme_use('aqua')
+        self.style = ttk.Style()
+        self.style.theme_use('aqua')
 
 def Application(title, *rows):
     app = _Application(title)
