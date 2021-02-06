@@ -2,13 +2,6 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import events
 
-WIDGETS = {
-    'Button' : ttk.Button,
-    'CloseButton' : ttk.Button,
-    'Entry' : ttk.Entry,
-    'Label' : ttk.Label,
-}
-
 class _Application(tk.Tk):
     def __init__(self, title):
         super().__init__()
@@ -63,23 +56,23 @@ class _WidgetFactory:
         return self
 
     def __call__(self, parent):
-        self.widget = WIDGETS[self.widget_type](parent, **self.kwargs)
+        self.widget = self.widget_type(parent, **self.kwargs)
         return self.widget
 
 def Button(button_text):
-    return _WidgetFactory('Button').options(text=button_text)
+    return _WidgetFactory(ttk.Button).options(text=button_text)
 
 def CloseButton(button_text):
-    button_factory = _WidgetFactory('Button') 
+    button_factory = _WidgetFactory(ttk.Button) 
     return button_factory.options(
         text=button_text,
         command=lambda: button_factory.widget.winfo_toplevel().destroy()
     )
 
-Entry = _WidgetFactory('Entry')
+Entry = _WidgetFactory(ttk.Entry)
 
 def Label(label_text):
-    return _WidgetFactory('Label').options(text=label_text)
+    return _WidgetFactory(ttk.Label).options(text=label_text)
 
 class Listbox(_WidgetFactory):
     def __init__(self, items):
