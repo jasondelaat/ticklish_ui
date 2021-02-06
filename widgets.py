@@ -88,7 +88,7 @@ class RadioGroup(_WidgetFactory):
                 class_=self.group_name, name=f'radio_{option}'
             )
             tags = list(button.bindtags())
-            tags[0] = 'TRadiobutton'
+            tags.insert(1, 'TRadiobutton')
             button.bindtags(tags)
             button.pack(side=tk.LEFT)
         control.set(self.radio_options[0])
