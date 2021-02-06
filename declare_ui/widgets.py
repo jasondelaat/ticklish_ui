@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import events
+import declare_ui.events as events
 
 class Toplevel(tk.Toplevel):
     def __init__(self, title, *rows):
