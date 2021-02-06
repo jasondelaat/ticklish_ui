@@ -4,6 +4,7 @@ import events
 
 WIDGETS = {
     'Button' : ttk.Button,
+    'CloseButton' : ttk.Button,
     'Entry' : ttk.Entry,
     'Label' : ttk.Label,
 }
@@ -52,6 +53,13 @@ def Toplevel(title, *rows):
 
 def Button(button_text):
     return _WidgetFactory('Button').options(text=button_text)
+
+def CloseButton(button_text):
+    button_factory = _WidgetFactory('Button') 
+    return button_factory.options(
+        text=button_text,
+        command=lambda: button_factory.widget.winfo_toplevel().destroy()
+    )
 
 def Entry():
     return _WidgetFactory('Entry')
