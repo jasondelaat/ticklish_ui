@@ -2,24 +2,20 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import events
 
-class _Toplevel(tk.Toplevel):
-    def __init__(self, title):
+class Toplevel(tk.Toplevel):
+    def __init__(self, title, *rows):
         super().__init__()
         self.title(title)
         self.style = ttk.Style()
         self.style.theme_use('aqua')
-
-def Toplevel(title, *rows):
-    popup = _Toplevel(title)
-    count = 0
-    for row in rows:
-        count += 1
-        frame = ttk.Frame(popup, name=f'row{count}')
-        frame.pack(fill=tk.BOTH)
-        for widget in row:
-            w = widget(frame)
-            w.pack(side=tk.LEFT)
-    return popup
+        count = 0
+        for row in rows:
+            count += 1
+            frame = ttk.Frame(self, name=f'row{count}')
+            frame.pack(fill=tk.BOTH)
+            for widget in row:
+                w = widget(frame)
+                w.pack(side=tk.LEFT)
 
 class _WidgetFactory:
     def __init__(self, widget_type):
