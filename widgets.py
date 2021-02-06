@@ -51,22 +51,6 @@ def Toplevel(title, *rows):
             w.pack(side=tk.LEFT)
     return popup
 
-def Button(button_text):
-    return _WidgetFactory('Button').options(text=button_text)
-
-def CloseButton(button_text):
-    button_factory = _WidgetFactory('Button') 
-    return button_factory.options(
-        text=button_text,
-        command=lambda: button_factory.widget.winfo_toplevel().destroy()
-    )
-
-def Entry():
-    return _WidgetFactory('Entry')
-
-def Label(label_text):
-    return _WidgetFactory('Label').options(text=label_text)
-
 class _WidgetFactory:
     def __init__(self, widget_type):
         self.widget_type = widget_type
@@ -80,6 +64,21 @@ class _WidgetFactory:
     def __call__(self, parent):
         self.widget = WIDGETS[self.widget_type](parent, **self.kwargs)
         return self.widget
+
+def Button(button_text):
+    return _WidgetFactory('Button').options(text=button_text)
+
+def CloseButton(button_text):
+    button_factory = _WidgetFactory('Button') 
+    return button_factory.options(
+        text=button_text,
+        command=lambda: button_factory.widget.winfo_toplevel().destroy()
+    )
+
+Entry = _WidgetFactory('Entry')
+
+def Label(label_text):
+    return _WidgetFactory('Label').options(text=label_text)
 
 class RadioGroup(_WidgetFactory):
     def __init__(self, group_name, options=[]):
