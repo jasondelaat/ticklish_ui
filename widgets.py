@@ -81,6 +81,19 @@ Entry = _WidgetFactory('Entry')
 def Label(label_text):
     return _WidgetFactory('Label').options(text=label_text)
 
+class Listbox(_WidgetFactory):
+    def __init__(self, items):
+        self.kwargs = {}
+        self.items = items
+
+    def __call__(self, parent):
+        tree = ttk.Treeview(parent, **self.kwargs)
+        for i in range(len(self.items)):
+            tree.insert('', i, iid=self.items[i], text=self.items[i])
+        tree.pack(side=tk.LEFT)
+        return tree
+
+
 class RadioGroup(_WidgetFactory):
     def __init__(self, group_name, options=[]):
         self.kwargs = {'name' : f'radiogroup_{group_name}'}
