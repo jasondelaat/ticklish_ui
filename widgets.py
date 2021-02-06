@@ -70,7 +70,8 @@ class _WidgetFactory:
         return self
 
     def __call__(self, parent):
-        return WIDGETS[self.widget_type](parent, **self.kwargs)
+        self.widget = WIDGETS[self.widget_type](parent, **self.kwargs)
+        return self.widget
 
 class RadioGroup(_WidgetFactory):
     def __init__(self, group_name, options=[]):
