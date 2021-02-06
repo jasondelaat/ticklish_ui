@@ -73,4 +73,8 @@ class _WidgetFactory:
         return WIDGETS[self.widget_type](parent, **self.kwargs)
 
 class RadioGroup(_WidgetFactory):
+    def __init__(self, group_name, options=[]):
+        self.kwargs = {'name' : f'radiogroup_{group_name}'}
+        self.group_name = group_name
+        self.radio_options = options
 
