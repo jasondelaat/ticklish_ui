@@ -2,36 +2,12 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import events
 
-class _Application(tk.Tk):
-    def __init__(self, title):
-        super().__init__()
-        self.title(title)
-        self.style = ttk.Style()
-        self.style.theme_use('aqua')
-
-    def get_event_stream(self, event_sequence):
-        stream = events.EventStream()
-        self.bind_all(event_sequence, lambda e: stream.insert(e))
-        return stream
-        
 class _Toplevel(tk.Toplevel):
     def __init__(self, title):
         super().__init__()
         self.title(title)
         self.style = ttk.Style()
         self.style.theme_use('aqua')
-
-def Application(title, *rows):
-    app = _Application(title)
-    count = 0
-    for row in rows:
-        count += 1
-        frame = ttk.Frame(app, name=f'row{count}')
-        frame.pack(fill=tk.BOTH)
-        for widget in row:
-            w = widget(frame)
-            w.pack(side=tk.LEFT)
-    return app
 
 def Toplevel(title, *rows):
     popup = _Toplevel(title)
@@ -59,6 +35,26 @@ class _WidgetFactory:
         self.widget = self.widget_type(parent, **self.kwargs)
         return self.widget
 
+class Application(tk.Tk):
+    def __init__(self, title, *rows):
+        super().__init__()
+        self.title(title)
+        self.style = ttk.Style()
+        self.style.theme_use('aqua')
+        count = 0
+        for row in rows:
+            count += 1
+            frame = ttk.Frame(self, name=f'row{count}')
+            frame.pack(fill=tk.BOTH)
+            for widget in row:
+                w = widget(frame)
+                w.pack(side=tk.LEFT)
+
+    def get_event_stream(self, event_sequence):
+        stream = events.EventStream()
+        self.bind_all(event_sequence, lambda e: stream.insert(e))
+        return stream
+        
 def Button(button_text):
     return _WidgetFactory(ttk.Button).options(text=button_text)
 
