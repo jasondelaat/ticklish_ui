@@ -11,7 +11,7 @@ class WidgetFactory:
             self.kwargs[key] = kwargs[key]
         return self
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         raise NotImplementedError()
 
 class Application(tk.Tk):
@@ -26,7 +26,7 @@ class Application(tk.Tk):
             frame = ttk.Frame(self, name=f'row{count}')
             frame.pack(fill=tk.BOTH)
             for factory in row:
-                widget = factory(frame)
+                widget = factory.create_widget(frame)
                 widget.pack(side=tk.LEFT)
 
     def get_event_stream(self, event_sequence):
@@ -38,34 +38,34 @@ class Button(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         return ttk.Button(parent, **self.kwargs)
 
 class Canvas(WidgetFactory):
     def __init__(self, width, height):
         self.kwargs = {'width' : width, 'height' : height}
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         return tk.Canvas(parent, **self.kwargs)
 
 class CloseButton(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         button = ttk.Button(parent, **self.kwargs)
         button['command'] = lambda: button.winfo_toplevel().destroy()
         return button
 
 class Entry(WidgetFactory):
-    def __call__(self, parent):
+    def create_widget(self, parent):
         return ttk.Entry(parent, **self.kwargs)
 
 class Label(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         return ttk.Label(parent, **self.kwargs)
 
 class Listbox(WidgetFactory):
@@ -73,7 +73,7 @@ class Listbox(WidgetFactory):
         self.kwargs = {}
         self.items = items
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         tree = ttk.Treeview(parent, **self.kwargs)
         for i in range(len(self.items)):
             tree.insert('', i, iid=self.items[i], text=self.items[i])
@@ -86,7 +86,7 @@ class RadioGroup(WidgetFactory):
         self.group_name = group_name
         self.radio_options = options
 
-    def __call__(self, parent):
+    def create_widget(self, parent):
         group = ttk.Frame(parent, **self.kwargs)
         group.pack(fill=tk.BOTH)
         control = tk.StringVar()
@@ -115,5 +115,5 @@ class Toplevel(tk.Toplevel):
             frame = ttk.Frame(self, name=f'row{count}')
             frame.pack(fill=tk.BOTH)
             for factory in row:
-                widget = factory(frame)
+                widget = factory.create_widget(frame)
                 widget.pack(side=tk.LEFT)
