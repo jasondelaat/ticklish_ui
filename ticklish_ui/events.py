@@ -1,3 +1,82 @@
+"""Provides Streams for intercepting and manipulating events.
+
+Event streams are how ticklish decouples GUI layout and event
+handling. After defining an appliation, users retrieve event streams
+and manipulate them to bind operations to specific GUI actions.
+
+Stream and EventStream can be used mostly interchangably but
+EventStream has additional methods specifically for matching GUI
+events according to the widget name, widget class, etc.
+
+Example 1 - No events - /examples/basic_stream.py:
+
+    # This example creates a stream which filters out odd numbers and
+    # prints only the even ones. 
+
+    from ticklish_ui import Stream
+
+    stream = Stream()
+
+    (stream
+    .filter(lambda n: n % 2 ==0)
+    .map(print)
+    )
+
+    stream.insert(1)
+    stream.insert(2)
+    stream.insert(3)
+    stream.insert(4)
+    stream.insert(5)
+    stream.insert(6)
+    stream.insert(7)
+    stream.insert(8)
+    stream.insert(9)
+    stream.insert(10)
+
+    # Expected output:
+    # 2
+    # 4
+    # 6
+    # 8
+    # 10
+
+Example 2 - Simple events - /examples/simple_events.py:
+
+    # This example demonstrates simple use of event streams by creating
+    # GUI with two buttons and binding multiple events to them.
+
+    from ticklish_ui import *
+
+    # Create the GUI
+    app = Application(
+        'EventStream Example',
+        [Label("I'm a label. Clicking me won't do anything.")],
+        [Button('Click me!'), Button('No, me!').options(name='button2')]
+    )
+
+    # Get an event stream of all clicks anywhere in the application
+    # window.
+    clicks = app.get_event_stream('<ButtonRelease-1>')
+
+    # We can create new streams by filtering and mapping old ones:
+
+    # This stream only captures clicks on Button widgets.
+    any_button = clicks.filter(lambda e: e.widget.winfo_class() == 'TButton')
+
+    # And this one captures clicks on the second button only.
+    button2_only = clicks.filter(lambda e: e.widget.winfo_name() == 'button2')
+
+    # Multiple actions can be mapped to a single stream. These actions are
+    # both performed when either button is clicked.
+    any_button.map(lambda e: print('Clicked either button'))
+    any_button.map(lambda e: print('but I don\'t know which one.'))
+
+    # But this only happens when the second button is clicked.
+    button2_only.map(lambda e: print('Clicked "No me!"'))
+
+    app.mainloop()
+"""
+
 class Stream:
     def __init__(self, predicate=lambda e: True, action=lambda e: e):
         self.predicate = predicate
