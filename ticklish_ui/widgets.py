@@ -36,8 +36,12 @@ class Application(tk.Tk):
         self.bind_all(event_sequence, lambda e: stream.insert(e))
         return stream
         
-def Button(button_text):
-    return _WidgetFactory(ttk.Button).options(text=button_text)
+class Button(_WidgetFactory):
+    def __init__(self, text):
+        self.kwargs = {'text', text}
+
+    def __call__(self, parent):
+        return ttk.Button(parent, **self.kwargs)
 
 class Canvas(_WidgetFactory):
     def __init__(self, width, height):
