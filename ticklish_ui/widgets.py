@@ -39,8 +39,12 @@ class Application(tk.Tk):
 def Button(button_text):
     return _WidgetFactory(ttk.Button).options(text=button_text)
 
-def Canvas(width, height):
-    return _WidgetFactory(tk.Canvas).options(width=width, height=height)
+class Canvas(_WidgetFactory):
+    def __init__(self, width, height):
+        self.kwargs = {'width' : width, 'height' : height}
+
+    def __call__(self, parent):
+        return tk.Canvas(parent, **self.kwargs)
 
 def CloseButton(button_text):
     button_factory = _WidgetFactory(ttk.Button) 
