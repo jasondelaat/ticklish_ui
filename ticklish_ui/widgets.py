@@ -13,8 +13,7 @@ class _WidgetFactory:
         return self
 
     def __call__(self, parent):
-        self.widget = self.widget_type(parent, **self.kwargs)
-        return self.widget
+        return self.widget_type(parent, **self.kwargs)
 
 class Application(tk.Tk):
     def __init__(self, title, *rows):
@@ -50,13 +49,15 @@ class Canvas(_WidgetFactory):
     def __call__(self, parent):
         return tk.Canvas(parent, **self.kwargs)
 
-def CloseButton(button_text):
-    button_factory = _WidgetFactory(ttk.Button) 
-    return button_factory.options(
-        text=button_text,
-        command=lambda: button_factory.widget.winfo_toplevel().destroy()
-    )
+class CloseButton(_WidgetFactory):
+    def __init__(self, text):
+        self.kwargs = {'text' : text}
 
+    def __call__(self, parent):
+        button = ttk.Button(parent, **self.kwargs)
+        button['command'] = lambda: button.winfo_toplevel().destroy()
+        return button
+    
 Entry = _WidgetFactory(ttk.Entry)
 
 def Label(label_text):
