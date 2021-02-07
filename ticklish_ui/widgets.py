@@ -60,9 +60,13 @@ class CloseButton(_WidgetFactory):
     
 Entry = _WidgetFactory(ttk.Entry)
 
-def Label(label_text):
-    return _WidgetFactory(ttk.Label).options(text=label_text)
+class Label(_WidgetFactory):
+    def __init__(self, text):
+        self.kwargs = {'text' : text}
 
+    def __call__(self, parent):
+        return ttk.Label(parent, **self.kwargs)
+        
 class Listbox(_WidgetFactory):
     def __init__(self, items):
         self.kwargs = {}
