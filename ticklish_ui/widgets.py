@@ -2,7 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 import ticklish_ui.events as events
 
-class _WidgetFactory:
+class WidgetFactory:
     def __init__(self):
         self.kwargs = {}
 
@@ -34,21 +34,21 @@ class Application(tk.Tk):
         self.bind_all(event_sequence, stream.insert)
         return stream
 
-class Button(_WidgetFactory):
+class Button(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
     def __call__(self, parent):
         return ttk.Button(parent, **self.kwargs)
 
-class Canvas(_WidgetFactory):
+class Canvas(WidgetFactory):
     def __init__(self, width, height):
         self.kwargs = {'width' : width, 'height' : height}
 
     def __call__(self, parent):
         return tk.Canvas(parent, **self.kwargs)
 
-class CloseButton(_WidgetFactory):
+class CloseButton(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
@@ -57,18 +57,18 @@ class CloseButton(_WidgetFactory):
         button['command'] = lambda: button.winfo_toplevel().destroy()
         return button
 
-class Entry(_WidgetFactory):
+class Entry(WidgetFactory):
     def __call__(self, parent):
         return ttk.Entry(parent, **self.kwargs)
 
-class Label(_WidgetFactory):
+class Label(WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
 
     def __call__(self, parent):
         return ttk.Label(parent, **self.kwargs)
 
-class Listbox(_WidgetFactory):
+class Listbox(WidgetFactory):
     def __init__(self, items):
         self.kwargs = {}
         self.items = items
@@ -80,7 +80,7 @@ class Listbox(_WidgetFactory):
         tree.pack(side=tk.LEFT)
         return tree
 
-class RadioGroup(_WidgetFactory):
+class RadioGroup(WidgetFactory):
     def __init__(self, group_name, options):
         self.kwargs = {'name' : f'radiogroup_{group_name}'}
         self.group_name = group_name
