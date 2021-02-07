@@ -3,8 +3,7 @@ import tkinter.ttk as ttk
 import ticklish_ui.events as events
 
 class _WidgetFactory:
-    def __init__(self, widget_type):
-        self.widget_type = widget_type
+    def __init__(self):
         self.kwargs = {}
 
     def options(self, **kwargs):
@@ -13,7 +12,7 @@ class _WidgetFactory:
         return self
 
     def __call__(self, parent):
-        return self.widget_type(parent, **self.kwargs)
+        raise NotImplementedError()
 
 class Application(tk.Tk):
     def __init__(self, title, *rows):
@@ -37,7 +36,7 @@ class Application(tk.Tk):
         
 class Button(_WidgetFactory):
     def __init__(self, text):
-        self.kwargs = {'text', text}
+        self.kwargs = {'text' : text}
 
     def __call__(self, parent):
         return ttk.Button(parent, **self.kwargs)
@@ -58,7 +57,9 @@ class CloseButton(_WidgetFactory):
         button['command'] = lambda: button.winfo_toplevel().destroy()
         return button
     
-Entry = _WidgetFactory(ttk.Entry)
+class Entry(_WidgetFactory):
+    def __call__(self, parent):
+        return ttk.Entry(parent, **self.kwargs)
 
 class Label(_WidgetFactory):
     def __init__(self, text):
