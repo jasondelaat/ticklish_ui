@@ -25,15 +25,15 @@ class Application(tk.Tk):
             count += 1
             frame = ttk.Frame(self, name=f'row{count}')
             frame.pack(fill=tk.BOTH)
-            for widget in row:
-                w = widget(frame)
-                w.pack(side=tk.LEFT)
+            for factory in row:
+                widget = factory(frame)
+                widget.pack(side=tk.LEFT)
 
     def get_event_stream(self, event_sequence):
         stream = events.EventStream()
-        self.bind_all(event_sequence, lambda e: stream.insert(e))
+        self.bind_all(event_sequence, stream.insert)
         return stream
-        
+
 class Button(_WidgetFactory):
     def __init__(self, text):
         self.kwargs = {'text' : text}
@@ -56,7 +56,7 @@ class CloseButton(_WidgetFactory):
         button = ttk.Button(parent, **self.kwargs)
         button['command'] = lambda: button.winfo_toplevel().destroy()
         return button
-    
+
 class Entry(_WidgetFactory):
     def __call__(self, parent):
         return ttk.Entry(parent, **self.kwargs)
@@ -67,7 +67,7 @@ class Label(_WidgetFactory):
 
     def __call__(self, parent):
         return ttk.Label(parent, **self.kwargs)
-        
+
 class Listbox(_WidgetFactory):
     def __init__(self, items):
         self.kwargs = {}
@@ -81,7 +81,7 @@ class Listbox(_WidgetFactory):
         return tree
 
 class RadioGroup(_WidgetFactory):
-    def __init__(self, group_name, options=[]):
+    def __init__(self, group_name, options):
         self.kwargs = {'name' : f'radiogroup_{group_name}'}
         self.group_name = group_name
         self.radio_options = options
@@ -114,6 +114,6 @@ class Toplevel(tk.Toplevel):
             count += 1
             frame = ttk.Frame(self, name=f'row{count}')
             frame.pack(fill=tk.BOTH)
-            for widget in row:
-                w = widget(frame)
-                w.pack(side=tk.LEFT)
+            for factory in row:
+                widget = factory(frame)
+                widget.pack(side=tk.LEFT)
