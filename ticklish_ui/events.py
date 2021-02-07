@@ -75,26 +75,74 @@ Example 2 - Simple events - /examples/simple_events.py:
     button2_only.map(lambda e: print('Clicked "No me!"'))
 
     app.mainloop()
+
 """
 
 class Stream:
+    """Create streamable data.
+
+    Streams intercept, act on, and pass along data. New streams are
+    created by filtering and mapping existing streams. A value
+    inserted into a parent stream will be passed along to child
+    streams, acted upon and potentially transformed before being
+    passed along to grandchild streams, and so on. This process
+    continues until the data is either filtered out or there are no
+    more child streams.
+
+    """
     def __init__(self, predicate=lambda e: True, action=lambda e: e):
         self.predicate = predicate
         self.action = action
         self.children = []
 
     def filter(self, predicate):
+        """Creates a new stream applying a filter to its parent's data.
+
+        Arguments:
+            predicate - a function accepting a single value and
+                        returns True if the data should be kept acted
+                        upon by the new stream and False otherwise.
+        
+        Returns:
+            A new Stream.
+
+        """
         stream = self.__class__(predicate, lambda e: e)
         self.children.append(stream)
         return stream
 
     def insert(self, value):
+        """Insert data into the stream.
+
+        If the data is accepted by the stream's filter then it is
+        acted upon and passed along to this stream's
+        children. Otherwise, the data is discarded.
+        
+        Arguments:
+            value - the data to pass into the stream
+
+        """
         if self.predicate(value):
             new_value = self.action(value)
             for child in self.children:
                 child.insert(new_value)
 
     def map(self, action):
+        """Creates a new stream applying an action to the stream's data.
+        
+        If the data is accepted by the stream's filter then perform
+        the given action on it and pass the new data along to this
+        stream's children.
+        
+        Arguments:
+            action - a function accepting a single argument (the data
+                     to act on). If this function returns a value,
+                     that value will be passed along to child streams.
+
+        Returns:
+            A new Stream.
+
+        """
         stream = self.__class__(lambda e: True, action)
         self.children.append(stream)
         return stream
