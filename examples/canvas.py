@@ -1,4 +1,4 @@
-from declare_ui import *
+from ticklish_ui import *
 
 app = Application(
     'Canvas Example',

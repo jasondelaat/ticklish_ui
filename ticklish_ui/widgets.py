@@ -1,6 +1,6 @@
 import tkinter as tk
 import tkinter.ttk as ttk
-import declare_ui.events as events
+import ticklish_ui.events as events
 
 class _WidgetFactory:
     def __init__(self, widget_type):
