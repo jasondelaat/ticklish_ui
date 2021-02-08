@@ -122,10 +122,20 @@ class Stream:
             value - the data to pass into the stream
 
         """
-        if self.predicate(value):
-            new_value = self.action(value)
-            for child in self.children:
-                child.insert(new_value)
+        try:
+            if self.predicate(value):
+                new_value = self.action(value)
+                for child in self.children:
+                    child.insert(new_value)
+        # This error can occur when a user clicks a CloseButton and
+        # the window is destoyed but streams are still attempting to
+        # process click events. This should be considered a temporary
+        # fix.
+        except AttributeError as e:
+            # If this isn't the message then we're getting an error we
+            # should probably care about.
+            if e.args[0] != "'str' object has no attribute 'winfo_name'":
+                raise e
 
     def map(self, action):
         """Creates a new stream applying an action to the stream's data.
