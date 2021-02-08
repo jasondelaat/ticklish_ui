@@ -334,7 +334,7 @@ class RadioGroup(WidgetFactory):
         group.variable = control
         return group
 
-class Toplevel(tk.Toplevel):
+class Toplevel(ContainerFactory, tk.Toplevel):
     """ Wrapper for the tkinter.Toplevel class. """
     def __init__(self, title, *rows):
         """Initialize the Toplevel window.
@@ -345,15 +345,8 @@ class Toplevel(tk.Toplevel):
             *rows - any number of rows given as lists of ticklish widgets.
 
         """
-        super().__init__()
+        super().__init__(None, rows)
+        self.create_widget(None)
         self.title(title)
         self.style = ttk.Style()
         self.style.theme_use('aqua')
-        count = 0
-        for row in rows:
-            count += 1
-            frame = ttk.Frame(self, name=f'row{count}')
-            frame.pack(fill=tk.BOTH)
-            for factory in row:
-                widget = factory.create_widget(frame)
-                widget.pack(side=tk.LEFT)
