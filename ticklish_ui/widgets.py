@@ -243,6 +243,16 @@ class Entry(WidgetFactory):
     def create_widget(self, parent):
         return ttk.Entry(parent, **self.kwargs)
 
+class Frame(ContainerFactory):
+    """ Wrapper for the tkinter.ttk.Frame class. """
+    def __init__(self, *rows):
+        """Initialize the Frame.
+
+        Arguments:
+            *rows - any number of rows given as lists of ticklish widgets.
+        """
+        super().__init__(ttk.Frame, rows)
+
 class Label(WidgetFactory):
     """ Wrapper for the tkinter.ttk.Label class. """
     def __init__(self, text):
