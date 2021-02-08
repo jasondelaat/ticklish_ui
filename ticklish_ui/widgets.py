@@ -73,8 +73,9 @@ class WidgetFactory:
     widgets.
 
     """
-    def __init__(self):
+    def __init__(self, widget_type):
         super().__init__()
+        self.widget_type = widget_type
         self.kwargs = {}
 
     def options(self, **kwargs):
@@ -99,8 +100,6 @@ class WidgetFactory:
     def create_widget(self, parent):
         """Creates the actual underlying widget.
 
-        This method must be overridden in subclasses.
-
         Arguments:
             parent - a widget which will contain the widget being created.
 
@@ -108,7 +107,7 @@ class WidgetFactory:
             A new widget.
 
         """
-        raise NotImplementedError()
+        return self.widget_type(parent, **self.kwargs)
 
 class ContainerFactory(WidgetFactory):
     """Base class for widgets which contain other widgets.
@@ -125,13 +124,12 @@ class ContainerFactory(WidgetFactory):
             rows - a list of lists of WidgetFactory instances
 
         """
-        super().__init__()
-        self.container_type = container_type
+        super().__init__(container_type)
         self.child_rows = rows
 
     def create_widget(self, parent):
-        if self.container_type:
-            container = self.container_type(parent, **self.kwargs)
+        if self.widget_type:
+            container = self.widget_type(parent, **self.kwargs)
         else:
             container = self
 
@@ -194,11 +192,8 @@ class Button(WidgetFactory):
         Arguments:
             text - the text displayed on the button.
         """
-        super().__init__()
+        super().__init__(ttk.Button)
         self.kwargs['text'] = text
-
-    def create_widget(self, parent):
-        return ttk.Button(parent, **self.kwargs)
 
 class Canvas(WidgetFactory):
     """ Wrapper for the tkinter.Canvas class. """
@@ -210,14 +205,11 @@ class Canvas(WidgetFactory):
             height - an int
 
         """
-        super().__init__()
+        super().__init__(tk.Canvas)
         self.kwargs['width'] = width
         self.kwargs['height'] = height
 
-    def create_widget(self, parent):
-        return tk.Canvas(parent, **self.kwargs)
-
-class CloseButton(WidgetFactory):
+class CloseButton(Button):
     """Wrapper for the tkinter.ttk.Button class.
 
     CloseButton is a ticklish addition which closes the toplevel
@@ -230,18 +222,17 @@ class CloseButton(WidgetFactory):
         Arguments:
             text - the text displayed on the button.
         """
-        super().__init__()
-        self.kwargs['text'] = text
+        super().__init__(text)
 
     def create_widget(self, parent):
-        button = ttk.Button(parent, **self.kwargs)
+        button = super().create_widget(parent)
         button['command'] = lambda: button.winfo_toplevel().destroy()
         return button
 
 class Entry(WidgetFactory):
     """ Wrapper for the tkinter.ttk.Entry class. """
-    def create_widget(self, parent):
-        return ttk.Entry(parent, **self.kwargs)
+    def __init__(self):
+        super().__init__(ttk.Entry)
 
 class Frame(ContainerFactory):
     """ Wrapper for the tkinter.ttk.Frame class. """
@@ -261,11 +252,8 @@ class Label(WidgetFactory):
         Arguments:
             text - the text displayed on the label.
         """
-        super().__init__()
+        super().__init__(ttk.Label)
         self.kwargs['text'] = text
-
-    def create_widget(self, parent):
-        return ttk.Label(parent, **self.kwargs)
 
 class Listbox(WidgetFactory):
     """A wrapper for the tkinter.ttk.Treeview class.
@@ -281,11 +269,11 @@ class Listbox(WidgetFactory):
         Arguments:
             items - a list of strings to be displayed in the Listbox.
         """
-        super().__init__()
+        super().__init__(ttk.Treeview)
         self.items = items
 
     def create_widget(self, parent):
-        tree = ttk.Treeview(parent, **self.kwargs)
+        tree = super().create_widget(parent)
         for i in range(len(self.items)):
             tree.insert('', i, iid=self.items[i], text=self.items[i])
         tree.pack(side=tk.LEFT)
@@ -322,7 +310,7 @@ class RadioGroup(WidgetFactory):
                       separate radio button in the group.
 
         """
-        super().__init__()
+        super().__init__(None)
         self.kwargs['name'] = f'radiogroup_{group_name}'
         self.group_name = group_name
         self.radio_options = options
