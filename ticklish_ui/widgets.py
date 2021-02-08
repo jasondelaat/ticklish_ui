@@ -69,11 +69,12 @@ class WidgetFactory:
     When defining an Application users are actually creating
     factories, which store the necessary information to create
     widgets, and not not widgets themselves. The actual widget is
-    created later by Application, Toplevel, or other container widgets
-    which may themselves be factories.
+    created later by Application, Toplevel, or other container
+    widgets.
 
     """
     def __init__(self):
+        super().__init__()
         self.kwargs = {}
 
     def options(self, **kwargs):
@@ -109,7 +110,42 @@ class WidgetFactory:
         """
         raise NotImplementedError()
 
-class Application(tk.Tk):
+class ContainerFactory(WidgetFactory):
+    """Base class for widgets which contain other widgets.
+
+    ContainerFactory differs from WidgetFactory in that it is
+    responsible for creating itself and all of it's children.
+
+    """
+    def __init__(self, container_type, rows):
+        """Initialize the ContainerFactory.
+
+        Arguments:
+            container_type - a widget class such as tkinter.ttk.Frame
+            rows - a list of lists of WidgetFactory instances
+
+        """
+        super().__init__()
+        self.container_type = container_type
+        self.child_rows = rows
+
+    def create_widget(self, parent):
+        if self.container_type:
+            container = self.container_type(parent, **self.kwargs)
+        else:
+            container = self
+
+        count = 0
+        for row in self.child_rows:
+            count += 1
+            frame = ttk.Frame(container, name=f'row{count}')
+            frame.pack(fill=tk.BOTH)
+            for factory in row:
+                widget = factory.create_widget(frame)
+                widget.pack(side=tk.LEFT)
+        return container
+
+class Application(ContainerFactory, tk.Tk):
     """The root window for all ticklish UIs.
 
     This class wraps the tkinter.Tk class so every ticklish UI must
