@@ -161,18 +161,11 @@ class Application(ContainerFactory, tk.Tk):
             *rows - any number of rows given as lists of ticklish widgets.
 
         """
-        super().__init__()
+        super().__init__(None, rows)
+        self.create_widget(None)
         self.title(title)
         self.style = ttk.Style()
         self.style.theme_use('aqua')
-        count = 0
-        for row in rows:
-            count += 1
-            frame = ttk.Frame(self, name=f'row{count}')
-            frame.pack(fill=tk.BOTH)
-            for factory in row:
-                widget = factory.create_widget(frame)
-                widget.pack(side=tk.LEFT)
 
     def get_event_stream(self, event_sequence):
         """Bind an event stream to the Application.
