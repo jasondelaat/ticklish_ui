@@ -134,7 +134,9 @@ class Stream:
         except AttributeError as e:
             # If this isn't the message then we're getting an error we
             # should probably care about.
-            if e.args[0] != "'str' object has no attribute 'winfo_name'":
+            message = e.args[0]
+            if (message != "'str' object has no attribute 'winfo_name'"
+                and message != "'str' object has no attribute 'winfo_class'"):
                 raise e
 
     def map(self, action):
