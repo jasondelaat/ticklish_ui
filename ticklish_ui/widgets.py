@@ -389,16 +389,19 @@ class Dropdown(WidgetFactory):
         dropdown = super().create_widget(parent)
         variable = tk.StringVar(value=self.button_text)
         dropdown['textvariable'] = variable
+        menu = tk.Menu(dropdown, name=f'{dropdown.winfo_name()}_menu')
 
-        def display(value):
-            return lambda: variable.set(value)
-
-        menu = tk.Menu(dropdown)
         for option in self.option_list:
             menu.add_command(
-                label=option, command=display(option)
+                label=option, command=_dd_update(dropdown, option)
             )
         dropdown['menu'] = menu
         dropdown.set = variable.set
         dropdown.get = variable.get
         return dropdown
+
+def _dd_update(dropdown, value):
+    def command():
+        dropdown.set(value)
+        dropdown.event_generate('<<Select>>')
+    return command
