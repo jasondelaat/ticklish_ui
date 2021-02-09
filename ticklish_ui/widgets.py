@@ -184,6 +184,50 @@ class Application(ContainerFactory, tk.Tk):
         self.bind_all(event_sequence, stream.insert)
         return stream
 
+    def menubar(self, *menus):
+        """Define the application menus.
+
+        Arguments:
+            *menus - any number of menu definitions. Each menu
+                     definition is given as a 2-tuple. The first
+                     element is the menu name, the second element is a
+                     list of strings defining the items in the menu.
+
+        """
+        menubar = tk.Menu(self, name='menubar')
+        self['menu'] = menubar
+        for menu_label, items in menus:
+            menu = tk.Menu(menubar)
+            menubar.add_cascade(label=menu_label, menu=menu)
+            for item in items:
+                menu.add_command(
+                    label=item, command=_menu_update(self, menu_label, item)
+                )
+
+    def menu_command(self, menu_selector, callback):
+        """Bind a command to a menu item.
+
+        Arguments:
+            menu_selector - a string of the form {Menu}-{Item}. For
+                            instance, given a menu Background with
+                            entries Red, Green and Blue, the
+                            menu_selector to bind a command to Red
+                            would be 'Background-Red'
+            callback - a function to call when the given menu item is
+                       selected. The callback takes the root window as
+                       input so the application can be manipulated in
+                       any way the user requires.
+
+        """
+        (self.get_event_stream(f'<<Menu-{menu_selector}>>')
+         .map(lambda e: callback(self))
+        )
+
+def _menu_update(root, label, item):
+    def command():
+        root.event_generate(f'<<Menu-{label}-{item}>>')
+    return command
+
 class Button(WidgetFactory):
     """ Wrapper for the tkinter.ttk.Button class. """
     def __init__(self, text):
