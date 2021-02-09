@@ -236,6 +236,18 @@ class Frame(ContainerFactory):
         """
         super().__init__(ttk.Frame, rows)
 
+class LabelFrame(ContainerFactory):
+    """ Wrapper for the tkinter.ttk.LabelFrame class. """
+    def __init__(self, label_text, *rows):
+        """ Initialize the LabelFrame.
+
+        Arguments:
+            label_text - the text displayed on the LabelFrame.
+            *rows - any number of rows given as lists of ticklish widgets.
+        """
+        super().__init__(ttk.LabelFrame, rows)
+        self.kwargs['text'] = label_text
+
 class Label(WidgetFactory):
     """ Wrapper for the tkinter.ttk.Label class. """
     def __init__(self, text):
