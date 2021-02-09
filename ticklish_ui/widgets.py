@@ -299,14 +299,14 @@ class RadioGroup(Frame):
         """Initialize the RadioGroup.
 
         The frame containing the radio buttons will be given the name
-        radiogroup_{group_name}, each button will be given the name
+        group_name, each button will be given the name
         radio_{option}, and all radio buttons in the group will be
-        assigned the group name as their class_ option.
+        assigned group_name capitalized as their class_ option.
 
-        For instance, given group_name = Alpha, and
+        For instance, given group_name = alpha, and
         options = ['A', 'B', 'C']:
 
-        1. The frame will be called radiogroup_Alpha
+        1. The frame will be called alpha
         2. The buttons will be called radio_A, radio_B, and radio_C
         3. All three buttons' class_ option will be Alpha
 
@@ -320,10 +320,10 @@ class RadioGroup(Frame):
 
         """
         buttons = map(lambda o: Radiobutton(o).options(
-            class_=group_name
+            class_=group_name.capitalize()
         ), radio_options)
         super().__init__(buttons)
-        self.kwargs['name'] = f'radiogroup_{group_name}'
+        self.kwargs['name'] = group_name
 
     def create_widget(self, parent):
         widget = super().create_widget(parent)
