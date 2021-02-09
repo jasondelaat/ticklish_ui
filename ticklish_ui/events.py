@@ -131,13 +131,15 @@ class Stream:
         # the window is destoyed but streams are still attempting to
         # process click events. This should be considered a temporary
         # fix.
-        except AttributeError as e:
+        except AttributeError as error:
             # If this isn't the message then we're getting an error we
             # should probably care about.
-            message = e.args[0]
-            if (message != "'str' object has no attribute 'winfo_name'"
-                and message != "'str' object has no attribute 'winfo_class'"):
-                raise e
+            message = error.args[0]
+            if message not in (
+                    "'str' object has no attribute 'winfo_name'",
+                    "'str' object has no attribute 'winfo_class'"
+            ):
+                raise error
 
     def map(self, action):
         """Creates a new stream applying an action to the stream's data.
