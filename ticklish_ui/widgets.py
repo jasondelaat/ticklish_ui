@@ -216,14 +216,6 @@ class CloseButton(Button):
     window that contains it when clicked.
 
     """
-    def __init__(self, text):
-        """ Initialize the CloseButton.
-
-        Arguments:
-            text - the text displayed on the button.
-        """
-        super().__init__(text)
-
     def create_widget(self, parent):
         button = super().create_widget(parent)
         button['command'] = lambda: button.winfo_toplevel().destroy()
@@ -279,14 +271,31 @@ class Listbox(WidgetFactory):
         tree.pack(side=tk.LEFT)
         return tree
 
-class RadioGroup(WidgetFactory):
+class Radiobutton(WidgetFactory):
+    """ Wrapper for the tkinter.ttk.Radiobutton class. """
+    def __init__(self, button_text):
+        """Initialize the Radiobutton.
+
+        Arugments:
+            button_text - a string. The text and value of the
+                          radiobutton are set to this value and the
+                          name of the radiobutton is set to
+                          'radio_{button_text}'
+
+        """
+        super().__init__(ttk.Radiobutton)
+        self.kwargs['text'] = button_text
+        self.kwargs['value'] = button_text
+        self.kwargs['name'] = f'radio_{button_text}'
+
+class RadioGroup(Frame):
     """Create a set of radio buttons.
 
     RadioGroup is a ticklish addition which creates a set of radio
     buttons from a list of strings.
 
     """
-    def __init__(self, group_name, options):
+    def __init__(self, group_name, radio_options):
         """Initialize the RadioGroup.
 
         The frame containing the radio buttons will be given the name
@@ -310,27 +319,21 @@ class RadioGroup(WidgetFactory):
                       separate radio button in the group.
 
         """
-        super().__init__(None)
+        buttons = map(lambda o: Radiobutton(o).options(
+            class_=group_name
+        ), radio_options)
+        super().__init__(buttons)
         self.kwargs['name'] = f'radiogroup_{group_name}'
-        self.group_name = group_name
-        self.radio_options = options
 
     def create_widget(self, parent):
-        group = ttk.Frame(parent, **self.kwargs)
-        group.pack(fill=tk.BOTH)
-        control = tk.StringVar()
-        for option in self.radio_options:
-            button = ttk.Radiobutton(
-                group, value=option, text=option, variable=control,
-                class_=self.group_name, name=f'radio_{option}'
-            )
+        widget = super().create_widget(parent)
+        widget.variable = tk.StringVar()
+        for button in widget.winfo_children()[0].winfo_children():
+            button.configure(variable=widget.variable)
             tags = list(button.bindtags())
             tags.insert(1, 'TRadiobutton')
             button.bindtags(tags)
-            button.pack(side=tk.LEFT)
-        control.set(self.radio_options[0])
-        group.variable = control
-        return group
+        return widget
 
 class Toplevel(ContainerFactory, tk.Toplevel):
     """ Wrapper for the tkinter.Toplevel class. """
