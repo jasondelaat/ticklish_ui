@@ -63,6 +63,7 @@ from ticklish_ui.widgets.application import *
 from ticklish_ui.widgets.buttons import *
 from ticklish_ui.widgets.canvas import *
 from ticklish_ui.widgets.checkbuttons import *
+from ticklish_ui.widgets.combobox import *
 from ticklish_ui.widgets.dropdown import *
 from ticklish_ui.widgets.entry import *
 from ticklish_ui.widgets.factories import *
