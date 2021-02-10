@@ -12,6 +12,9 @@ app = Application(
     [CloseButton('Quit')],
 )
 
+# Since we need access to the app.style object to get the available
+# theme names, the Listbox is created after the Application and
+# inserted into row 2 with an explicit call to create_widget().
 (Listbox(app.style.theme_names())
  .options(name='theme_selector')
  .create_widget(app.nametowidget('.row2'))
