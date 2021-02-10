@@ -14,7 +14,7 @@ app = Application(
 
 (Listbox(app.style.theme_names())
  .options(name='theme_selector')
- (app.nametowidget('.row2'))
+ .create_widget(app.nametowidget('.row2'))
 )
 
 def change_theme(e):
