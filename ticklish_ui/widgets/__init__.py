@@ -59,4 +59,15 @@ Example - Widget Options - /examples/widget_options.py:
     ).mainloop()
 
 """
-from ticklish_ui.widgets.widgets import *
+from ticklish_ui.widgets.application import *
+from ticklish_ui.widgets.buttons import *
+from ticklish_ui.widgets.canvas import *
+from ticklish_ui.widgets.checkbuttons import *
+from ticklish_ui.widgets.dropdown import *
+from ticklish_ui.widgets.entry import *
+from ticklish_ui.widgets.factories import *
+from ticklish_ui.widgets.frames import *
+from ticklish_ui.widgets.label import *
+from ticklish_ui.widgets.listbox import *
+from ticklish_ui.widgets.radiobuttons import *
+from ticklish_ui.widgets.toplevel import *
