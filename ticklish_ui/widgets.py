@@ -342,7 +342,6 @@ class Radiobutton(WidgetFactory):
         super().__init__(ttk.Radiobutton)
         self.kwargs['text'] = button_text
         self.kwargs['value'] = button_text
-        self.kwargs['name'] = f'radio_{button_text}'
 
 class RadioGroup(Frame):
     """Create a set of radio buttons.
@@ -351,7 +350,7 @@ class RadioGroup(Frame):
     buttons from a list of strings.
 
     """
-    def __init__(self, group_name, radio_options):
+    def __init__(self, group_name, *rows):
         """Initialize the RadioGroup.
 
         The frame containing the radio buttons will be given the name
@@ -375,20 +374,25 @@ class RadioGroup(Frame):
                       separate radio button in the group.
 
         """
-        buttons = map(lambda o: Radiobutton(o).options(
-            class_=group_name.capitalize()
-        ), radio_options)
-        super().__init__(buttons)
+        button_rows = []
+        for row in rows:
+            buttons = map(lambda label: Radiobutton(label).options(
+                class_=group_name.capitalize(),
+                name=f'radio_{label}'
+            ), row)
+            button_rows.append(buttons)
+        super().__init__(*button_rows)
         self.kwargs['name'] = group_name
 
     def create_widget(self, parent):
         widget = super().create_widget(parent)
         widget.variable = tk.StringVar()
-        for button in widget.winfo_children()[0].winfo_children():
-            button.configure(variable=widget.variable)
-            tags = list(button.bindtags())
-            tags.insert(1, 'TRadiobutton')
-            button.bindtags(tags)
+        for row in widget.winfo_children():
+            for button in row.winfo_children():
+                button.configure(variable=widget.variable)
+                tags = list(button.bindtags())
+                tags.insert(1, 'TRadiobutton')
+                button.bindtags(tags)
         return widget
 
 class Toplevel(ContainerFactory, tk.Toplevel):
