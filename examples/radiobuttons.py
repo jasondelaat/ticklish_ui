@@ -6,7 +6,10 @@ app = Application(
 
     #.row1
     # RadioGroup gets a name and a list of text labels.
-    [RadioGroup('alpha', ['A', 'B', 'C'])],
+    [RadioGroup('alpha',
+                ['A', 'B', 'C', 'D', 'E'],
+                ['F', 'G', 'H', 'I', 'J']
+    )],
 
     #.row2
     [Button('OK').options(name='ok'), CloseButton('Quit')],
