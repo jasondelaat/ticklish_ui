@@ -1,0 +1,79 @@
+* Ticklish - Declarative style GUI programming in Python
+  The ticklish_ui package is a wrapper around the tkinter and
+  tkinter.ttk widgets which aims to simplify GUI creation by allowing
+  users to specify the layout declaratively while decoupling GUI
+  creation from event binding.
+  
+  Ticklish works by wrapping the underlying widgets in factory objects
+  deferring actual widget creation until the entire layout has been
+  specified. Layouts are specified as rows of widgets which are laid
+  out from left to right. Once created, event streams are used to bind
+  actions to specific widgets.
+  
+  The following simple example creates a window which accepts some
+  input, prints it to the console when the OK button is clicked, and
+  closes the application when the Quit button is clicked.
+  
+  #+begin_src python
+from ticklish_ui import *
+
+# Define the layout.  An application can have any number of rows and
+# rows can contain any number of widgets.
+app = Application(
+    'ticklish_ui_example',
+    
+    # .row1
+    [Label('Enter some text below')],
+    
+    # .row2
+    [Entry().options(name='entry')],
+
+    # .row3
+    [Button('OK').options(name='ok'), CloseButton('Quit')]
+)
+
+def print_input(event):
+    entry = app.nametowidget('.row2.entry')
+    print(entry.get())
+
+# click captures all click events anywhere in the application.
+click = app.get_event_stream('<ButtonRelease-1>')
+
+# An event stream can then be filtered and bound to some action(s)
+(click
+ # Here we filter by the name of the widget clicked.
+ .by_name('ok') 
+
+ # And then map/bind an action to that event.
+ .map(print_input)
+)
+
+app.mainloop()
+  #+end_src
+
+  The use of event streams is optional. Users can retrieve widgets and
+  bind events and commands in a more traditional way if they
+  prefer. The following would also have worked in the above example.
+  
+  #+begin_src python
+def print_input():
+    entry = app.nametowidget('.row2.entry')
+    print(entry.get())
+
+ok_button = app.nametowidget('.row3.ok')
+ok_button['command'] = print_input
+
+# Or you can bind events.
+#ok_button.bind('<ButtonRelease-1>', lambda event: do_something(event))
+  #+end_src
+
+  Most ticklish widgets are just straight wrappers for the underlying
+  widgets but additions have been made for convenience. For instance,
+  CloseButton in the above example is a button which automatically
+  calls the destory() method on the toplevel window that contains
+  it. That's why it can quit the program without an explicity event
+  binding. Similarly there are RadioGroup and CheckGroup widgets which
+  allow you to lay out whole sets of the corresponding buttons easily.
+  
+  The goal of ticklish is to simplify the creation and implementation
+  of GUIs without abstracting away any of their power.
