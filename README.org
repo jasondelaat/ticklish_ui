@@ -50,6 +50,8 @@ click = app.get_event_stream('<ButtonRelease-1>')
 
 app.mainloop()
   #+end_src
+  
+  [[file:screenshots/readme_minimal_ui.png]]
 
   The use of event streams is optional. Users can retrieve widgets and
   bind events and commands in a more traditional way if they
@@ -70,10 +72,50 @@ ok_button['command'] = print_input
   Most ticklish widgets are just straight wrappers for the underlying
   widgets but additions have been made for convenience. For instance,
   CloseButton in the above example is a button which automatically
-  calls the destory() method on the toplevel window that contains
-  it. That's why it can quit the program without an explicity event
-  binding. Similarly there are RadioGroup and CheckGroup widgets which
-  allow you to lay out whole sets of the corresponding buttons easily.
+  calls the destory() method on the toplevel window that contains it.
+  Similarly, there are RadioGroup and CheckGroup widgets which allow
+  you to lay out whole sets of the corresponding buttons easily.
   
   The goal of ticklish is to simplify the creation and implementation
   of GUIs without abstracting away any of their power.
+
+** Getting Started
+   To start using ticklish_ui install it from the Python Package Index
+   with pip:
+
+   #+begin_src sh
+pip3 install ticklish_ui
+   #+end_src
+
+   Check that the install worked by running the following code.
+
+   #+begin_src python
+from ticklish_ui import *
+
+Application('MyApp').mainloop()
+   #+end_src
+
+   You should get an empty window with 'MyApp' in the titlebar.
+
+*** Next Steps
+    An attempt has been made to make the ticklish_ui module
+    documentation as comprehensive as possible. It can be viewed in a
+    number of ways.
+
+    With pydoc from the commandline:
+
+    #+begin_src sh
+pydoc3 ticklish_ui.widgets.application
+    #+end_src
+    
+    With `help()` from the python interactive interpreter:
+
+    #+begin_src sh
+>>> import ticklish_ui
+>>> help(ticklish_ui.events.EventStream)
+    #+end_src
+    
+    Or just by browsing the [[https://github.com/jasondelaat/ticklish_ui][source code]] on github.
+    
+    The github repository also includes a number of examples
+    demonstating how to use the various widgets.
