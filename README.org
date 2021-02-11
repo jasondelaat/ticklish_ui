@@ -68,7 +68,7 @@ ok_button = app.nametowidget('.row3.ok')
 ok_button['command'] = print_input
 
 # Or you can bind events.
-#ok_button.bind('<ButtonRelease-1>', lambda event: do_something(event))
+#ok_button.bind('<ButtonRelease-1>', do_something)
   #+end_src
 
   Most ticklish widgets are just straight wrappers for the underlying
@@ -223,7 +223,20 @@ base.insert(10)
    - Add a way to declaratively define grid layouts
 
 ** Contributing
-   For detailed information of contributing to ticklish_ui see
+   There are a number of ways to help the project:
+
+   - Wrap a widget :: not all widgets have been implemented yet. If you
+		      need one that's not available why not wrap it up
+                      for everyone to use?
+   - Write a tutorial :: if you like how ticklish works and implement
+        something more interesting than the examples, consider writing
+        it up and showing others how it's done. And remember to send
+        me a link!
+   - Spread the word :: if you think people might find ticklish
+        useful, interesting or otherwise worth knowing about, let them
+        know where to find it.
+
+   For detailed information on contributing to ticklish_ui see
    [[file:CONTRIBUTING.org][CONTRIBUTING.org.]]
 
 ** License
