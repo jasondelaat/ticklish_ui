@@ -81,6 +81,98 @@ ok_button['command'] = print_input
   The goal of ticklish is to simplify the creation and implementation
   of GUIs without abstracting away any of their power.
 
+** Features
+*** Widgets
+   The following widgets are currently implemented. Widgets which are
+   marked as ticklish_ui additions are not part of the standard
+   tkinter/tkinter.ttk widgets sets and /may/ have additional attributes
+   and behaviours in addition to those provided by the base widget.
+
+   | ticklish_ui name | Base widget             | ticklish_ui addition |
+   |------------------+-------------------------+----------------------|
+   | Application      | tkinter.Tk              | yes                  |
+   | Button           | tkinter.ttk.Button      | no                   |
+   | Canvas           | tkinter.Canvas          | no                   |
+   | CheckGroup       | tkinter.ttk.Frame       | yes                  |
+   | Checkbutton      | tkinter.ttk.Checkbutton | no                   |
+   | CloseButton      | tkinter.ttk.Button      | yes                  |
+   | Combobox         | tkinter.ttk.Combobox    | no                   |
+   | Dropdown         | tkinter.ttk.Combobox    | yes*                 |
+   | Entry            | tkinter.ttk.Entry       | no                   |
+   | Frame            | tkinter.ttk.Frame       | no                   |
+   | Label            | tkinter.ttk.Label       | no                   |
+   | LabelFrame       | tkinter.ttk.LabelFrame  | no                   |
+   | Listbox          | tkinter.ttk.Treeview    | yes*                 |
+   | RadioGroup       | tkinter.ttk.Frame       | yes                  |
+   | Radiobutton      | tkinter.ttk.Radiobutton | no                   |
+   | Toplevel         | tkinter.Toplevel        | no                   |
+   *These widgets are additions in the sense that they use specific
+   settings to get a particular default behaviour but are otherwise
+   just wrappers around the base widget.
+   
+   Eventually ticklish will provide wrappers out-of-the-box for all
+   tkinter and tkinter.ttk widgets. Users can implement or wrap
+   additional widgets by subclassing the WidgetFactory or
+   ContainerFactory classes as needed.
+
+*** Streams
+    Ticklish provides a very simple Stream construct. Data can be
+    inserted into a stream and will be acted on automatically before
+    being passed to any child streams if they exist. Child streams are
+    created by filtering and mapping existing streams. Filtering
+    determines what data is allowed into the stream; mapping, how the
+    data is handled and/or transformed.
+    
+    Here's a quick example:
+    #+begin_src python :results output
+from ticklish_ui.events import Stream
+
+base = Stream()
+
+odd_stream = base.filter(lambda n: n % 2 == 1).map(lambda n: print(f'odd: {n}'))
+even_stream = base.filter(lambda n: n % 2 == 0).map(lambda n: print(f'even: {n}'))
+
+base.insert(1)
+base.insert(2)
+base.insert(3)
+base.insert(4)
+base.insert(5)
+base.insert(6)
+base.insert(7)
+base.insert(8)
+base.insert(9)
+base.insert(10)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+    odd: 1
+    even: 2
+    odd: 3
+    even: 4
+    odd: 5
+    even: 6
+    odd: 7
+    even: 8
+    odd: 9
+    even: 10
+    #+end_example
+    
+    Note that, although data is being inserted into the ~base~ stream,
+    it's the child streams --- ~odd_stream~ and ~even_stream~ ---
+    which are doing the actual work. If either of the mapped functions
+    returned a value then further filtering and mapping could be done
+    creating a whole pipeline of actions to be carried out
+    automatically any time a value is inserted into the base stream.
+    
+    The EventStream class provides default filters for dealing
+    specifically with tkinter events --- filtering by the name of the
+    widget involved, for instance -- but is otherwise just a regular
+    stream.
+
+    Streams allow program authors to handle normal data and user
+    generated events in similar ways but are entirely optional.
+
 ** Getting Started
    To start using ticklish_ui install it from the Python Package Index
    with pip:
