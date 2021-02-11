@@ -214,3 +214,15 @@ pydoc3 ticklish_ui.widgets.application
     Or just by browsing the [[https://github.com/jasondelaat/ticklish_ui][source code]] on github.
     
     The github repository also includes a number of [[https://github.com/jasondelaat/ticklish_ui/tree/release/examples][examples]].
+
+** Future Development
+   On the todo list in no particular order:
+
+   - Allow merging streams
+   - Implement the rest of the tkinter and tkinter.ttk widgets
+   - Add a way to declaratively define grid layouts
+
+** License
+   ~ticklish_ui~ is free software licensed under the [[file:LICENSE][BSD-3-Clause License]].
+  
+  
