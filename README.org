@@ -1,3 +1,5 @@
+#+startup: inlineimages
+
 * Ticklish - Declarative style GUI programming in Python
   The ticklish_ui package is a wrapper around the tkinter and
   tkinter.ttk widgets which aims to simplify GUI creation by allowing
@@ -51,7 +53,7 @@ click = app.get_event_stream('<ButtonRelease-1>')
 app.mainloop()
   #+end_src
   
-  [[file:screenshots/readme_minimal_ui.png]]
+  [[file:screenshots/readme_simple_ui.png]]
 
   The use of event streams is optional. Users can retrieve widgets and
   bind events and commands in a more traditional way if they
@@ -87,15 +89,17 @@ ok_button['command'] = print_input
 pip3 install ticklish_ui
    #+end_src
 
-   Check that the install worked by running the following code.
+   Check that the install worked by running the following code either
+   from a file or the python interactive interpreter.
 
    #+begin_src python
-from ticklish_ui import *
+import ticklish_ui as tui
 
-Application('MyApp').mainloop()
+tui.Application('MyApp').mainloop()
    #+end_src
 
-   You should get an empty window with 'MyApp' in the titlebar.
+   You should get something that looks like this:
+   [[file:screenshots/readme_minimal_ui.png]]
 
 *** Next Steps
     An attempt has been made to make the ticklish_ui module
@@ -108,7 +112,7 @@ Application('MyApp').mainloop()
 pydoc3 ticklish_ui.widgets.application
     #+end_src
     
-    With `help()` from the python interactive interpreter:
+    With ~help()~ from the python interactive interpreter:
 
     #+begin_src sh
 >>> import ticklish_ui
@@ -117,5 +121,4 @@ pydoc3 ticklish_ui.widgets.application
     
     Or just by browsing the [[https://github.com/jasondelaat/ticklish_ui][source code]] on github.
     
-    The github repository also includes a number of examples
-    demonstating how to use the various widgets.
+    The github repository also includes a number of [[https://github.com/jasondelaat/ticklish_ui/tree/release/examples][examples]].
