@@ -124,7 +124,7 @@ ok_button['command'] = print_input
     data is handled and/or transformed.
     
     Here's a quick example:
-    #+begin_src python :results output
+    #+begin_src python :results ouktput
 from ticklish_ui.events import Stream
 
 base = Stream()
@@ -144,7 +144,7 @@ base.insert(9)
 base.insert(10)
     #+end_src
 
-    #+RESULTS:
+    RESULTS:
     #+begin_example
     odd: 1
     even: 2
@@ -167,7 +167,7 @@ base.insert(10)
     
     The EventStream class provides default filters for dealing
     specifically with tkinter events --- filtering by the name of the
-    widget involved, for instance -- but is otherwise just a regular
+    widget involved, for instance --- but is otherwise just a regular
     stream.
 
     Streams allow program authors to handle normal data and user
