@@ -222,6 +222,10 @@ pydoc3 ticklish_ui.widgets.application
    - Implement the rest of the tkinter and tkinter.ttk widgets
    - Add a way to declaratively define grid layouts
 
+** Contributing
+   For detailed information of contributing to ticklish_ui see
+   [[file:CONTRIBUTING.org][CONTRIBUTING.org.]]
+
 ** License
    ~ticklish_ui~ is free software licensed under the [[file:LICENSE][BSD-3-Clause License]].
   
