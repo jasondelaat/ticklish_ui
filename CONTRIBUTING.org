@@ -1,0 +1,92 @@
+* Contributing
+  First and foremost, always be repectful towards other contributors.
+  
+** Contributing code
+*** Running the examples
+    To contribute code to ticklish_ui, fork the project and download a
+    local copy. You'll want to check that everything is working and the
+    easiest way to do that is to try running some of the examples.
+  
+    The examples /shouldn't/ work out-of-the-box. If they do then you
+    have ticklish installed on your system already and python will never
+    see any of the changes you make so, you'll have to uninstall it
+    first.
+
+    Assuming the examples don't work, you'll need to add a link in the
+    examples directory to the~ticklish_ui~package directory. On *nix
+    systems, including OSX, this command from inside the examples
+    directory should do the trick:
+
+    #+begin_src sh
+ln -s ../ticklish_ui
+    #+end_src
+  
+    Python will now be able to find the~ticklish_ui~package and the
+    examples should run.
+
+*** Linting
+    Where required, contibutions to~ticklish_ui~should be linted with
+    ~pylint~. If you haven't already, you can install it with ~pip~.
+
+    #+begin_src sh
+pip3 install pylint
+    #+end_src
+
+**** ticklish_ui
+     All code under the~ticklish_ui~package directory /must/ be
+     linted. From the root project directory run:
+
+    #+begin_src sh
+pylint ticklish_ui
+    #+end_src
+    
+    And make sure it gives you a 10/10 before submitting a pull
+    request. 
+
+    Ideally, every effort should be made to avoid having to disable
+    pylint warnings. If it turns out the adding an exception is
+    /absolutely necessary/ to get linting to pass then include a note
+    in the pull request about where and why it was required.
+    
+
+**** examples
+     Files in the examples directory /may/ be linted as the author
+     desires but it's not required.
+*** Docstrings
+    The ~ticklish_ui~ module documentation aims to be comprehensive so
+    longer --- even multi-paragraph --- docstrings are encouraged in
+    many cases.
+    
+    In general, try to follow the docstring guidelines from the 
+    [[https://google.github.io/styleguide/pyguide.html#s3.8-comments-and-docstrings][Google Python Style Guide]].
+
+**** Simple wrapper classes
+     When implementing simple wrapper classes extensive documentation
+     is not required. 
+     
+     You /must/ document the ~__init__~ method of the wrapper class so
+     users know what values are required to create the widget. Do this
+     even if you think the arguments and their meaning are obvious. 
+
+     Note that ~pylint~ will /not/ complain if you fail to add a
+     docstring to ~__init__~ so remember to double check!
+     
+     See [[file:ticklish_ui/widgets/label.py][ticklish_ui/widgets/label.py]] for an example of how to
+     document a simple wrapper class.
+
+**** Additions/Compound Widgets
+     Ticklish is mostly just a wrapper around ~tkinter~ but some
+     additions have been made to make some tasks more convenient, like
+     adding groups of radio or checkbuttons.
+
+     If you're adding something that's not just a simple wrapper
+     around existing widgets the class documentation should be more
+     extensive. Explain the widgets purpose, how to use it and,
+     ideally, provide a short example. This can be code copy and
+     pasted directly from a file in the examples directory if
+     desired. Importantly, when including an example copy the actual
+     code, including copyright info if any, don't just reference the
+     example file: not all users will have downloaded the examples.
+
+     See [[file:ticklish_ui/widgets/radiobuttons.py][ticklish_ui/widgets/radiobuttons.py]] for an example of how to
+     document a more complex widget.
