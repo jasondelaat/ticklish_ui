@@ -4,3 +4,6 @@ examples/ticklish_ui
 *__pycache__*
 *.pyc
 *.egg-info
+build/*
+dist/*
+README.md
