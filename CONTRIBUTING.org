@@ -91,3 +91,18 @@ pylint ticklish_ui
 
      See [[file:ticklish_ui/widgets/radiobuttons.py][ticklish_ui/widgets/radiobuttons.py]] for an example of how to
      document a more complex widget.
+**** Examples
+     Extensive documentation of examples is not required. Examples
+     should aim to be fairly self explanatory with any interesting
+     features explained in simple comments.
+*** New examples
+    New examples are welcome! They should be relatively short and self
+    explanatory but otherwise there's no real limitations.
+    
+    If you've written a new simple wrapper or compound widget then you
+    /must/ include an example which demonstrates it's use. 
+
+    If you've modified any existing code make sure the examples which
+    use that code still work. It's not your responsibility to fix
+    broken examples but please include a note in your pull request so
+    that broken examples fixed.
