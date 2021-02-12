@@ -3,9 +3,10 @@
   
 ** Contributing code
 *** Running the examples
-    To contribute code to ticklish_ui, fork the project and download a
-    local copy. You'll want to check that everything is working and the
-    easiest way to do that is to try running some of the examples.
+    To contribute code to ~ticklish_ui~, fork the project on github
+    and download a local copy. You'll want to check that everything is
+    working and the easiest way to do that is to try running some of
+    the examples.
   
     The examples /shouldn't/ work out-of-the-box. If they do then you
     have ticklish installed on your system already and python will never
@@ -13,7 +14,7 @@
     first.
 
     Assuming the examples don't work, you'll need to add a link in the
-    examples directory to the~ticklish_ui~package directory. On *nix
+    examples directory to the ~ticklish_ui~ package directory. On *nix
     systems, including OSX, this command from inside the examples
     directory should do the trick:
 
@@ -21,11 +22,11 @@
 ln -s ../ticklish_ui
     #+end_src
   
-    Python will now be able to find the~ticklish_ui~package and the
+    Python will now be able to find the ~ticklish_ui~ package and the
     examples should run.
 
 *** Linting
-    Where required, contibutions to~ticklish_ui~should be linted with
+    Where required, contibutions to ~ticklish_ui~ should be linted with
     ~pylint~. If you haven't already, you can install it with ~pip~.
 
     #+begin_src sh
@@ -33,7 +34,7 @@ pip3 install pylint
     #+end_src
 
 **** ticklish_ui
-     All code under the~ticklish_ui~package directory /must/ be
+     All code under the ~ticklish_ui~ package directory /must/ be
      linted. From the root project directory run:
 
     #+begin_src sh
