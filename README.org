@@ -120,7 +120,7 @@ app.mainloop()
      The ~aqua~ theme is used in the above screenshots but may not be
      available on all systems.
      
-     You can use the [[file:examples/theme_viewer.py][theme viewer]] example to see the themes available
+     You can use the [[https://github.com/jasondelaat/ticklish_ui/blob/release/examples/theme_viewer.py][theme viewer]] example to see the themes available
      on your system and then set one as above.
      
      [[https://github.com/jasondelaat/ticklish_ui/raw/release/screenshots/readme_themes.png]]
