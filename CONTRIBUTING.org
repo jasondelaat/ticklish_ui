@@ -72,8 +72,8 @@ pylint ticklish_ui
      Note that ~pylint~ will /not/ complain if you fail to add a
      docstring to ~__init__~ so remember to double check!
      
-     See [[file:ticklish_ui/widgets/label.py][ticklish_ui/widgets/label.py]] for an example of how to
-     document a simple wrapper class.
+     See [[file:ticklish_ui/widgets/label.py][label.py]] for an example of how to document a simple wrapper
+     class.
 
 **** Additions/Compound Widgets
      Ticklish is mostly just a wrapper around ~tkinter~ but some
@@ -89,8 +89,8 @@ pylint ticklish_ui
      code, including copyright info if any, don't just reference the
      example file: not all users will have downloaded the examples.
 
-     See [[file:ticklish_ui/widgets/radiobuttons.py][ticklish_ui/widgets/radiobuttons.py]] for an example of how to
-     document a more complex widget.
+     See [[file:ticklish_ui/widgets/radiobuttons.py][radiobuttons.py]] for an example of how to document a more
+     complex widget.
 **** Examples
      Extensive documentation of examples is not required. Examples
      should aim to be fairly self explanatory with any interesting
