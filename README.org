@@ -103,26 +103,49 @@ tui.Application('MyApp').mainloop()
    [[https://github.com/jasondelaat/ticklish_ui/raw/release/screenshots/readme_minimal_ui.png]]
 
 *** Next Steps
-    An attempt has been made to make the ~ticklish_ui~ module
-    documentation as comprehensive as possible. It can be viewed in a
-    number of ways.
+**** Themes
+     Ticklish is set up to use the ttk default theme out-of-the-box
+     which probably won't look that great. Once created, you can use
+     the application's ~style~ property to change the theme.
 
-    With pydoc from the commandline:
+     #+begin_src python
+app = Application(
+    'MyApp',
+    # Rows...
+)
+app.style.theme_use('aqua') # Or whatever theme you're using
+app.mainloop()
+     #+end_src
+     
+     The ~aqua~ theme is used in the above screenshots but may not be
+     available on all systems.
+     
+     You can use the [[file:examples/theme_viewer.py][theme viewer]] example to see the themes available
+     on your system and then set one as above.
+     
+     [[https://github.com/jasondelaat/ticklish_ui/raw/release/screenshots/readme_themes.png]]
 
-    #+begin_src sh
+**** Documentation
+     An attempt has been made to make the ~ticklish_ui~ module
+     documentation as comprehensive as possible. It can be viewed in a
+     number of ways.
+
+     With pydoc from the commandline:
+
+     #+begin_src sh
 pydoc3 ticklish_ui.widgets.application
-    #+end_src
+     #+end_src
     
-    With ~help()~ from the python interactive interpreter:
+     With ~help()~ from the python interactive interpreter:
 
-    #+begin_src sh
+     #+begin_src sh
 >>> import ticklish_ui
 >>> help(ticklish_ui.events.EventStream)
-    #+end_src
+     #+end_src
     
-    Or just by browsing the [[https://github.com/jasondelaat/ticklish_ui][source code]] on github.
+     Or just by browsing the [[https://github.com/jasondelaat/ticklish_ui][source code]] on github.
     
-    The github repository also includes a number of [[https://github.com/jasondelaat/ticklish_ui/tree/release/examples][examples]].
+     The github repository also includes a number of [[https://github.com/jasondelaat/ticklish_ui/tree/release/examples][examples]].
 
 ** Features
 *** Widgets
