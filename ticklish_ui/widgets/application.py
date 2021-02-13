@@ -54,7 +54,7 @@ class Application(ContainerFactory, tk.Tk):
         self.create_widget(None)
         self.title(title)
         self.style = ttk.Style()
-        self.style.theme_use('aqua')
+        self.style.theme_use('default')
 
     def get_event_stream(self, event_sequence):
         """Bind an event stream to the Application.
