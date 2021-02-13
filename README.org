@@ -228,4 +228,4 @@ base.insert(10)
    [[https://github.com/jasondelaat/ticklish_ui/blob/release/CONTRIBUTING.org][CONTRIBUTING.org]] on github.
 
 ** License
-   ~ticklish_ui~ is free software licensed under the [[file:LICENSE][BSD-3-Clause License]].
+   ~ticklish_ui~ is free software licensed under the [[https://github.com/jasondelaat/ticklish_ui/blob/release/LICENSE][BSD-3-Clause License]].
