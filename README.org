@@ -53,7 +53,7 @@ click = app.get_event_stream('<ButtonRelease-1>')
 app.mainloop()
   #+end_src
   
-  [[file:screenshots/readme_simple_ui.png]]
+  [[https://raw.githubusercontent.com/jasondelaat/ticklish_ui/release/screenshots/readme_simple_ui.png?token=ALD4GMWIH3O6EOGI2SWQ4WLAE7G7K]]
 
   The use of event streams is optional. Users can retrieve widgets and
   bind events and commands in a more traditional way if they
@@ -99,7 +99,8 @@ tui.Application('MyApp').mainloop()
    #+end_src
 
    You should get something that looks like this:
-   [[file:screenshots/readme_minimal_ui.png]]
+
+   [[https://raw.githubusercontent.com/jasondelaat/ticklish_ui/release/screenshots/readme_minimal_ui.png?token=ALD4GMTNHPLOBO3CDBPWIT3AE7GV6]]
 
 *** Next Steps
     An attempt has been made to make the ~ticklish_ui~ module
@@ -224,7 +225,7 @@ base.insert(10)
 
 ** Contributing
    For detailed information on contributing to ~ticklish_ui~ see
-   [[file:CONTRIBUTING.org][CONTRIBUTING.org]] on github.
+   [[https://github.com/jasondelaat/ticklish_ui/blob/release/CONTRIBUTING.org][CONTRIBUTING.org]] on github.
 
 ** License
    ~ticklish_ui~ is free software licensed under the [[file:LICENSE][BSD-3-Clause License]].
