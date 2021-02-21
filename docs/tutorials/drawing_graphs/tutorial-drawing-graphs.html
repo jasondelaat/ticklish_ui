@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2021-02-21 Sun 10:04 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Tutorial - Drawing Graphs with <code>ticklish_ui</code></title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Jason DeLaat" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<link rel='stylesheet' type='text/css' href='https://necolas.github.io/normalize.css/latest/normalize.css' />
+<style>body {margin : auto; width : 65%}</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Tutorial - Drawing Graphs with <code>ticklish_ui</code></h1>
+<p>
+The source code for this tutorial can be found <a href="src/">here</a>.
+</p>
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#orgcd4fc12">A note on function currying and <code>pymonad</code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#orgee9fa21">Program structure</a></li>
+<li><a href="#orgaff60cd">The <code>main.py</code> module</a></li>
+<li><a href="#org4ab1c06">Handling communication</a></li>
+<li><a href="#org6c77a05">Defining the UI</a></li>
+<li><a href="#orgfeb7b04">Adding Vertices</a>
+<ul>
+<li><a href="#orgb78c680">Mapping and Filtering Streams</a></li>
+<li><a href="#org2f4a108">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
+<li><a href="#org4632293">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
+<li><a href="#org56248b8">The model and drawing vertices</a></li>
+</ul>
+</li>
+<li><a href="#org4b6cc2a">Selecting vertices and adding edges</a></div>
+</div>
+
+<div id="outline-container-orgcd4fc12" class="outline-4">
+<h4 id="orgcd4fc12">A note on function currying and <code>pymonad</code></h4>
+<div class="outline-text-4" id="text-orgcd4fc12">
+<p>
+<code>pymonad</code> is a package for monadic style functional programming in
+python. 
+</p>
+
+<p>
+I've written the tutorial using <code>pymonad</code>'s <code>curry</code> decorator to
+keep function definitions flat because I think it makes them
+easier to read and understand. However, the linked code uses
+nested functions to accomplish the same behaviour so you should be
+able to run the example code without having to install <code>pymonad</code>.
+</p>
+
+<p>
+If you're not familiar with function currying, it's a way to turn
+a function which takes several inputs into several functions
+which each take a single input. The practical upshot of which is
+you can apply a function to only some of its arguments and call
+the resulting function with the remainder of the arguments
+later.
+</p>
+
+<p>
+Here's a quick example:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">from</span> pymonad.tools <span style="color: #a020f0;">import</span> curry
+
+<span style="color: #228b22;">@curry</span>(2) <span style="color: #b22222;"># </span><span style="color: #b22222;">Because the function takes 2 arguments</span>
+<span style="color: #a020f0;">def</span> <span style="color: #0000ff;">add</span>(x, y):
+    <span style="color: #a020f0;">return</span> x + y
+</pre>
+</div>
+
+<p>
+If you call this function with two arguments, it does exactly
+what you would expect:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a020f0;">print</span>(add(1, 1))
+</pre>
+</div>
+
+<pre class="example">
+2
+
+</pre>
+
+<p>
+But if you call it with only one argument, it returns a new
+function which expects the remaining argument. 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #a0522d;">add_2</span> = add(2)
+
+<span style="color: #a020f0;">print</span>(add_2(3))
+<span style="color: #a020f0;">print</span>(add_2(4))
+<span style="color: #a020f0;">print</span>(add_2(5))
+</pre>
+</div>
+
+<pre class="example">
+5
+6
+7
+
+</pre>
+
+<p>
+In this tutorial, currying is used to allow event handlers to
+take "extra" arguments which we'll discuss more when we get to
+the event code.
+</p>
+
+<p>
+<code>pymonad</code> is  available on <a href="https://pypi.org/project/PyMonad/">pypi</a> and the source is on <a href="https://github.com/jasondelaat/pymonad">github</a>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgee9fa21" class="outline-2">
+<h2 id="orgee9fa21">Program structure</h2>
+<div class="outline-text-2" id="text-orgee9fa21">
+<p>
+The program uses the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter">Model-View-Presenter</a> architectural pattern and
+consists of four files:
+</p>
+
+<dl class="org-dl">
+<dt>main.py</dt><dd>loads all of the components and starts the program</dd>
+<dt>presenter.py</dt><dd>the Presenter class which fascilitates
+communication between the model and the view</dd>
+<dt>model.py</dt><dd>Vertex, Edge and Graph data structures</dd>
+<dt>view.py</dt><dd>The GraphView class which wraps the actual UI
+implemented using <code>ticklish_ui</code></dd>
+</dl>
+</div>
+</div>
+
+<div id="outline-container-orgaff60cd" class="outline-2">
+<h2 id="orgaff60cd">The <code>main.py</code> module</h2>
+<div class="outline-text-2" id="text-orgaff60cd">
+<p>
+We'll start with the easy stuff: <code>main.py</code>'s only job is to load
+the Presenter, Graph, and GraphView classes, initialize them and
+then start the program.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">main.py</span>
+
+<span style="color: #a020f0;">from</span> presenter <span style="color: #a020f0;">import</span> Presenter
+<span style="color: #a020f0;">from</span> view <span style="color: #a020f0;">import</span> GraphView
+<span style="color: #a020f0;">from</span> model <span style="color: #a020f0;">import</span> Graph
+
+Presenter(GraphView(), Graph()).start()
+</pre>
+</div>
+
+<p>
+Of course, none of those exist yet, so let's move on!
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4ab1c06" class="outline-2">
+<h2 id="org4ab1c06">Handling communication</h2>
+<div class="outline-text-2" id="text-org4ab1c06">
+<p>
+The job of the <code>Presenter</code> class is to handle communication between
+the view and the model. The view and the model can't communicate
+with each other directly, they can only communicate with <code>Presenter</code>
+which decides what to do and delegates to the model, view, or both.
+</p>
+
+<p>
+All of <code>Presenter</code>'s methods are pseudo-private: They're not
+intended to be called by either the model or the view. The only way
+for the view to communicate with <code>Presenter</code> is to generate
+events. We use <a href="https://tkdocs.com/tutorial/concepts.html#events">virtual events</a> to define what the view is able to
+communicate. The program only lets us do a two things: add vertices
+and add edges. But since an edge requires two vertices, we need to
+be able to select vertices as well. So, our events will be:
+<code>&lt;&lt;AddVertex&gt;&gt;</code>, <code>&lt;&lt;AddEdge&gt;&gt;</code>, and <code>&lt;&lt;SelectVertex&gt;&gt;</code>.
+</p>
+
+<p>
+So let's start defining the <code>Presenter</code> class.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">presenter.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Presenter</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>, view, model):
+        <span style="color: #a020f0;">self</span>.view = view
+        <span style="color: #a020f0;">self</span>.model = model
+
+        view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;AddVertex&gt;&gt;'</span>)
+        view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;SelectVertex&gt;&gt;'</span>)
+        view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;AddEdge&gt;&gt;'</span>)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">start</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.view.mainloop()
+</pre>
+</div>
+
+<p>
+The <code>start</code> method just calls <code>mainloop</code> on the view which will
+start the application.
+</p>
+
+<p>
+With <code>ticklish_ui</code> we bind events using the <code>get_event_stream</code>
+method which returns a light-weight reactive stream object
+capturing those events. In the above code we store instances of the
+view and model and then define three event streams, one for each of
+the events <code>Presenter</code> is prepared to respond to. We're not yet
+<i>doing</i> anything with those events but we are capturing them when
+they happen.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org6c77a05" class="outline-2">
+<h2 id="org6c77a05">Defining the UI</h2>
+<div class="outline-text-2" id="text-org6c77a05">
+<p>
+The <code>GraphView</code> class defines our actual GUI.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.ui = Application(
+            <span style="color: #8b2252;">'Graphs'</span>,
+            <span style="color: #b22222;"># </span><span style="color: #b22222;">.row1</span>
+            [RadioGroup(<span style="color: #8b2252;">'mode'</span>, [<span style="color: #8b2252;">'Vertex'</span>, <span style="color: #8b2252;">'Edge'</span>])],
+            <span style="color: #b22222;"># </span><span style="color: #b22222;">.row2</span>
+            [Canvas(640, 480)],
+        )
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">get_event_stream</span>(<span style="color: #a020f0;">self</span>, event_sequence):
+        <span style="color: #a020f0;">return</span> <span style="color: #a020f0;">self</span>.ui.get_event_stream(event_sequence)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">mainloop</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.ui.mainloop()
+</pre>
+</div>
+
+<p>
+The <code>get_event_stream</code> and <code>mainloop</code> methods just wrap the methods
+on the <code>Application</code> object.
+</p>
+
+<p>
+The GUI itself is defined using the <code>ticklish_ui</code> <code>Application</code>
+class. The first argument is the window title and all remaining
+arguments are lists of <code>ticklish_ui</code> widgets which will be laid out
+as rows. The <a href="https://github.com/jasondelaat/ticklish_ui">source code</a> includes has a bunch of examples
+showing how to use the various widgets.
+</p>
+
+<p>
+The above code will produce something that looks like
+this:
+</p>
+
+
+<div class="figure">
+<p><img src="images/blank-graph.png" alt="blank-graph.png" />
+</p>
+</div>
+
+<p>
+It may look a bit different depending on what the <code>tkinter</code> default theme is
+on your system.
+</p>
+</div>
+</div>
+
+<div id="outline-container-orgfeb7b04" class="outline-2">
+<h2 id="orgfeb7b04">Adding Vertices</h2>
+<div class="outline-text-2" id="text-orgfeb7b04">
+<p>
+Alright, let's make this actually do something. We want to add a
+vertex to the graph when we click on the canvas, if the
+'Vertex' radio button is selected. If 'Edge' is selected we don't do
+anything for now. We need to catch button click events
+and, like before, we use <code>get_event_stream</code> to do it.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>(View):
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.ui = Application(
+            <span style="color: #8b2252;">'Graphs'</span>,
+            <span style="color: #b22222;"># </span><span style="color: #b22222;">.row1</span>
+            [RadioGroup(<span style="color: #8b2252;">'mode'</span>, [<span style="color: #8b2252;">'Vertex'</span>, <span style="color: #8b2252;">'Edge'</span>])],
+            <span style="color: #b22222;"># </span><span style="color: #b22222;">.row2</span>
+            [Canvas(640, 480).options(name=<span style="color: #8b2252;">'canvas'</span>)],
+        )
+
+        <span style="color: #a020f0;">self</span>.ui.get_event_stream(<span style="color: #8b2252;">'&lt;ButtonRelease-1&gt;'</span>).by_name(<span style="color: #8b2252;">'canvas'</span>)
+</pre>
+</div>
+</div>
+
+<div id="outline-container-orgb78c680" class="outline-3">
+<h3 id="orgb78c680">Mapping and Filtering Streams</h3>
+<div class="outline-text-3" id="text-orgb78c680">
+<p>
+When we have an event stream we use the <code>filter</code> and <code>map</code> methods
+to create new streams from old ones adding behaviours as we
+go. <code>by_name</code> is a built-in filter for events which filters by the
+name of the widget on which the event occurred. The <code>options</code> method
+is used to assign additional options to widgets; here we use it to
+give the canvas a name. The event stream above catches left-click
+events which happen on the canvas. Clicks on the radio buttons are
+ignored by this stream.
+</p>
+
+<p>
+There's also a <code>by_class</code> filter.  The RadioGroup takes a name as
+its first argument and all of the radio buttons in that group are
+assigned to the same class. In the above code the group as a whole
+is called 'mode' while the two buttons belong to the class 'Mode'
+(note capitalization.) If we wanted to catch clicks on the radio
+buttons we could do this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">        <span style="color: #a020f0;">self</span>.ui.get_event_stream(<span style="color: #8b2252;">'&lt;ButtonRelease-1&gt;'</span>).by_class(<span style="color: #8b2252;">'Mode'</span>)
+</pre>
+</div>
+
+<p>
+And we'd get an event whenever either radio button is clicked. But
+we won't need that for this application.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org2f4a108" class="outline-3">
+<h3 id="org2f4a108">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
+<div class="outline-text-3" id="text-org2f4a108">
+<p>
+Here's the code to send <code>&lt;&lt;AddVertex&gt;&gt;</code> to <code>Presenter</code>.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">GUI definition...</span>
+        
+        (<span style="color: #a020f0;">self</span>.ui.get_event_stream(<span style="color: #8b2252;">'&lt;ButtonRelease-1&gt;'</span>)
+         .by_name(<span style="color: #8b2252;">'canvas'</span>)
+         .<span style="color: #483d8b;">filter</span>(<span style="color: #a020f0;">self</span>._mode_equals(<span style="color: #8b2252;">'Vertex'</span>))
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._event_generate(<span style="color: #8b2252;">'&lt;&lt;AddVertex&gt;&gt;'</span>))
+        )
+
+</pre>
+</div>
+
+<p>
+Both <code>map</code> and <code>filter</code> take functions as arguments. In the case of
+<code>filter</code> the function should return a boolean value: if <code>True</code>,
+executions continues down the stream; if <code>False</code>, it stops. <code>map</code>
+can return any value.
+</p>
+
+<p>
+So the above event handler says:
+</p>
+<ol class="org-ol">
+<li>Given a button click</li>
+<li>If the click occurred on 'canvas'</li>
+<li>And the selected mode is 'Vertex'</li>
+<li>Then generate the event <code>&lt;&lt;AddVertex&gt;&gt;</code></li>
+</ol>
+
+
+<p>
+The methods <code>_mode_equals</code> and <code>_event_generate</code> are defined like so:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+    <span style="color: #228b22;">@curry</span>(3)
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_mode_equals</span>(<span style="color: #a020f0;">self</span>, mode, _event_ignored):
+        <span style="color: #a0522d;">set_mode</span> = <span style="color: #a020f0;">self</span>.ui.nametowidget(<span style="color: #8b2252;">'.row1.mode'</span>).variable.get()
+        <span style="color: #a020f0;">return</span> set_mode == mode
+
+    <span style="color: #228b22;">@curry</span>(3)
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_event_generate</span>(<span style="color: #a020f0;">self</span>, event_sequence, event):
+        <span style="color: #a020f0;">self</span>.ui.event_generate(event_sequence, x=event.x, y=event.y)
+        <span style="color: #a020f0;">return</span> event
+</pre>
+</div>
+
+<p>
+<code>nametowidget</code> and <code>event_generate</code> (no leading underscore) are both
+methods on <code>tkinter</code> widgets which you can learn about <a href="https://tkdocs.com/shipman/universal.html">here</a>. The
+<code>Application</code> class automatically names the rows of your GUI <code>rowN</code>
+where <code>N</code> is the row number starting with 1.
+</p>
+
+<p>
+<code>_mode_equals</code> checks which radio button is currently selected,
+compares it to our desired mode and returns a boolean.
+</p>
+
+<p>
+<code>_event_generate</code> generates an event and sets its x and y
+coordinates to the same as the x, y coordinates of the incomming
+event: in this case the position of the mouse cursor when the left
+mouse button was clicked.
+</p>
+
+<p>
+Both <code>_mode_equals</code> and <code>_event_generate</code> are curried which allows
+us to call them with their first arguments &#x2014; <code>mode</code> and
+<code>event_sequence</code> respectively &#x2014; and return a function as <code>map</code> and
+<code>filter</code> expect without having to wrap the call in a <code>lambda</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">        <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+        .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">lambda</span> event: <span style="color: #a020f0;">self</span>._event_generate(<span style="color: #8b2252;">'&lt;&lt;AddVertex&gt;&gt;'</span>, event))
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+</pre>
+</div>
+
+<p>
+Or, alternatively, define a function inside a function:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python">    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_event_generate</span>(<span style="color: #a020f0;">self</span>, event_sequence):
+        <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">handler</span>(event):
+            <span style="color: #a020f0;">self</span>.ui.event_generate(event_sequence, x=event.x, y=event.y)
+            <span style="color: #a020f0;">return</span> event
+        <span style="color: #a020f0;">return</span> handler
+</pre>
+</div>
+
+<p>
+Either of those approaches is fine but currying allows us to write
+the function in a straight-forward way and then apply only the
+arguments we want. This is what was meant earlier by using currying
+to give event handlers extra arguments.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org4632293" class="outline-3">
+<h3 id="org4632293">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
+<div class="outline-text-3" id="text-org4632293">
+<p>
+When the <code>&lt;&lt;AddVertex&gt;&gt;</code> event stream in <code>Presenter</code> gets an
+event it needs to do three things:
+</p>
+
+<ol class="org-ol">
+<li>Extract the x and y coordinates</li>
+<li>Ask the model to create a new vertex</li>
+<li>Ask the view to draw the vertex</li>
+</ol>
+
+
+<p>
+We modify the event stream like this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">presenter.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Presenter</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>, view, model):
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+
+        (view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;AddVertex&gt;&gt;'</span>)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._get_coordinates)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._add_vertex)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._draw_vertex(<span style="color: #8b2252;">'black'</span>))
+        )
+</pre>
+</div>
+
+<p>
+Next we define the methods:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">presenter.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Presenter</span>:
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+    
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_get_coordinates</span>(<span style="color: #a020f0;">self</span>, event):
+        <span style="color: #a020f0;">return</span> event.x, event.y
+    
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_add_vertex</span>(<span style="color: #a020f0;">self</span>, coordinates):
+        <span style="color: #a020f0;">return</span> <span style="color: #a020f0;">self</span>.model.add_vertex(*coordinates)
+
+    <span style="color: #228b22;">@curry</span>(3)
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_draw_vertex</span>(<span style="color: #a020f0;">self</span>, color, vertex):
+        <span style="color: #a020f0;">self</span>.view.draw_vertex(color, vertex)
+
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+</pre>
+</div>
+
+<p>
+It's worth noting that although the stream starts out with an
+event, functions passed to <code>map</code> can return any value they
+want. <code>_get_coordinates</code> returns a tuple which is passed to
+<code>_add_vertex</code>; <code>_add_vertex</code> will return a vertex which is passed
+to <code>_draw_vertex</code>; and so on. Event streams don't have to remain
+event streams, they can transform and process data in whatever way
+makes sense to get the job done.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org56248b8" class="outline-3">
+<h3 id="org56248b8">The model and drawing vertices</h3>
+<div class="outline-text-3" id="text-org56248b8">
+<p>
+The model for our graphing application is very simple and fairly
+self explanatory. It tracks a list of vertices, a list of edges,
+provides methods to create each and a method to find a vertex in
+the vicinity of a given <code>x</code> and <code>y</code> coordinate which will be used
+later to select vertices. The complete implementation of the model
+is:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">model.py</span>
+
+<span style="color: #a020f0;">from</span> dataclasses <span style="color: #a020f0;">import</span> dataclass
+<span style="color: #a020f0;">import</span> math
+
+<span style="color: #228b22;">@dataclass</span>
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Vertex</span>:
+    x: <span style="color: #483d8b;">int</span>
+    y: <span style="color: #483d8b;">int</span>
+    
+<span style="color: #228b22;">@dataclass</span>
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Edge</span>:
+    start: Vertex
+    end: Vertex
+    
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Graph</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.vertices = []
+        <span style="color: #a020f0;">self</span>.edges = []
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">add_vertex</span>(<span style="color: #a020f0;">self</span>, x, y):
+        <span style="color: #a0522d;">vertex</span> = Vertex(x, y)
+        <span style="color: #a020f0;">self</span>.vertices.append(vertex)
+        <span style="color: #a020f0;">return</span> vertex
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">add_edge</span>(<span style="color: #a020f0;">self</span>, start, end):
+        <span style="color: #a0522d;">edge</span> = Edge(start, end)
+        <span style="color: #a020f0;">self</span>.edges.append(edge)
+        <span style="color: #a020f0;">return</span> edge
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">find_vertex</span>(<span style="color: #a020f0;">self</span>, x, y):
+        <span style="color: #a020f0;">for</span> v <span style="color: #a020f0;">in</span> <span style="color: #a020f0;">self</span>.vertices:
+            <span style="color: #a0522d;">dist</span> = math.sqrt((v.x - x)**2 + (v.y - y)**2)
+            <span style="color: #a020f0;">if</span> dist &lt;= 6:
+                <span style="color: #a020f0;">return</span> v
+</pre>
+</div>
+
+<p>
+After the vertex has been added, <code>Presenter</code> can ask <code>GraphView</code> to
+draw it. Which it does, like so:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">Application definition...</span>
+
+        <span style="color: #a020f0;">self</span>.canvas = <span style="color: #a020f0;">self</span>.ui.nametowidget(<span style="color: #8b2252;">'.row2.canvas'</span>)
+        
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">Event stream definitions ...</span>
+
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">draw_vertex</span>(<span style="color: #a020f0;">self</span>, color, vertex):
+        <span style="color: #a0522d;">x1</span>, <span style="color: #a0522d;">y1</span> = vertex.x - 3, vertex.y - 3
+        <span style="color: #a0522d;">x2</span>, <span style="color: #a0522d;">y2</span> = vertex.x + 3, vertex.y + 3
+        <span style="color: #a020f0;">self</span>.canvas.create_oval(x1, y1, x2, y2, fill=color, outline=color)
+
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+
+</pre>
+</div>
+
+<p>
+You can find more about drawing on the canvas <a href="https://tkdocs.com/tutorial/canvas.html">here</a>.
+</p>
+
+<p>
+We should now be able to add vertices to our graph!
+</p>
+
+
+<div class="figure">
+<p><img src="images/vertices.png" alt="vertices.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org4b6cc2a" class="outline-2">
+<h2 id="org4b6cc2a">Selecting vertices and adding edges</h2>
+<div class="outline-text-2" id="text-org4b6cc2a">
+<p>
+There's nothing drastically different about handling the remaining
+functionality so we'll go over it fairly quickly.
+</p>
+
+<p>
+Selecting vertices is part of adding an edge so we only select
+vertices in 'Edge' mode and we only draw an edge once we've
+selected two vertices. For this tutorial I decided to cache the
+selections in the <code>Presenter</code> class but in a real application you'd
+probably pass the selection on to the view so it could do something
+with it. The <code>&lt;&lt;AddEdge&gt;&gt;</code> event will check how many selections have
+been made and add an edge only if there are exactly two selections.
+</p>
+
+<p>
+In the view, when we click in 'Edge' mode, this is what happens:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>(View):
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">GUI definition...</span>
+
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">Assign button clicks on the canvas to the variable 'click'.</span>
+        <span style="color: #a0522d;">click</span> = <span style="color: #a020f0;">self</span>.ui.get_event_stream(<span style="color: #8b2252;">'&lt;ButtonRelease-1&gt;'</span>).by_name(<span style="color: #8b2252;">'canvas'</span>)
+
+        (click
+         .<span style="color: #483d8b;">filter</span>(<span style="color: #a020f0;">self</span>._mode_equals(<span style="color: #8b2252;">'Edge'</span>))
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._event_generate(<span style="color: #8b2252;">'&lt;&lt;SelectVertex&gt;&gt;'</span>))
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._event_generate(<span style="color: #8b2252;">'&lt;&lt;AddEdge&gt;&gt;'</span>))
+        )
+</pre>
+</div>
+
+<p>
+If we <code>get_event_stream</code> on the same event more than once it will
+overwrite our previous stream and our previous handler will stop
+working. To get around that we can assign the stream to a variable
+and then <code>map</code> and <code>filter</code> to effectively split the stream into
+multiple streams. To make everything work we have to modify our
+previous <code>&lt;&lt;AddVertex&gt;&gt;</code> code to this:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+        (click
+         .<span style="color: #483d8b;">filter</span>(<span style="color: #a020f0;">self</span>._mode_equals(<span style="color: #8b2252;">'Vertex'</span>))
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._event_generate(<span style="color: #8b2252;">'&lt;&lt;AddVertex&gt;&gt;'</span>))
+        )
+</pre>
+</div>
+
+<p>
+Similarly, we implement the <code>Presenter</code> code to handle the other two events.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">presenter.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Presenter</span>:
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">__init__</span>(<span style="color: #a020f0;">self</span>, view, model):
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">Other initialization...</span>
+        <span style="color: #a020f0;">self</span>.selections = []
+        
+        <span style="color: #b22222;"># </span><span style="color: #b22222;">Other event streams ...</span>
+
+        (view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;SelectVertex&gt;&gt;'</span>)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._get_coordinates)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._find_vertex)
+         .<span style="color: #483d8b;">filter</span>(<span style="color: #a020f0;">self</span>._vertex_exists)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._cache_vertex)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._draw_vertex(<span style="color: #8b2252;">'red'</span>))
+        )
+        
+        (view.get_event_stream(<span style="color: #8b2252;">'&lt;&lt;AddEdge&gt;&gt;'</span>)
+         .<span style="color: #483d8b;">filter</span>(<span style="color: #a020f0;">self</span>._two_selections)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._add_edge)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._update_display)
+         .<span style="color: #483d8b;">map</span>(<span style="color: #a020f0;">self</span>._clear_selections)
+        )
+</pre>
+</div>
+
+<p>
+And the methods which make them work:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">presenter.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">Presenter</span>:
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_add_edge</span>(<span style="color: #a020f0;">self</span>, _event_ignored):
+        <span style="color: #a020f0;">return</span> <span style="color: #a020f0;">self</span>.model.add_edge(*<span style="color: #a020f0;">self</span>.selections)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_cache_vertex</span>(<span style="color: #a020f0;">self</span>, vertex):
+        <span style="color: #a020f0;">self</span>.selections.append(vertex)
+        <span style="color: #a020f0;">return</span> vertex
+    
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_clear_selections</span>(<span style="color: #a020f0;">self</span>, _argument_ignored):
+        <span style="color: #a020f0;">self</span>.selections = []
+        
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_find_vertex</span>(<span style="color: #a020f0;">self</span>, coordinates):
+        <span style="color: #a020f0;">return</span> <span style="color: #a020f0;">self</span>.model.find_vertex(*coordinates)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_two_selections</span>(<span style="color: #a020f0;">self</span>, _event_ignored):
+        <span style="color: #a020f0;">return</span> <span style="color: #483d8b;">len</span>(<span style="color: #a020f0;">self</span>.selections) == 2
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_update_display</span>(<span style="color: #a020f0;">self</span>, _argument_ignored):
+        <span style="color: #a020f0;">self</span>.view.clear()
+        <span style="color: #a020f0;">for</span> v <span style="color: #a020f0;">in</span> <span style="color: #a020f0;">self</span>.model.vertices:
+            <span style="color: #a020f0;">self</span>.view.draw_vertex(<span style="color: #8b2252;">'black'</span>, v)
+
+        <span style="color: #a020f0;">for</span> e <span style="color: #a020f0;">in</span> <span style="color: #a020f0;">self</span>.model.edges:
+            <span style="color: #a020f0;">self</span>.view.draw_edge(e)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">_vertex_exists</span>(<span style="color: #a020f0;">self</span>, vertex):
+        <span style="color: #a020f0;">return</span> vertex <span style="color: #a020f0;">is</span> <span style="color: #a020f0;">not</span> <span style="color: #008b8b;">None</span>
+</pre>
+</div>
+
+<p>
+The last thing that needs to be done is define <code>clear</code> and
+<code>draw_edge</code> on <code>GraphView</code>:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-python"><span style="color: #b22222;"># </span><span style="color: #b22222;">view.py</span>
+
+<span style="color: #a020f0;">class</span> <span style="color: #228b22;">GraphView</span>:
+    <span style="color: #b22222;"># </span><span style="color: #b22222;">...</span>
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">clear</span>(<span style="color: #a020f0;">self</span>):
+        <span style="color: #a020f0;">self</span>.canvas.delete(<span style="color: #8b2252;">'all'</span>)
+
+    <span style="color: #a020f0;">def</span> <span style="color: #0000ff;">draw_edge</span>(<span style="color: #a020f0;">self</span>, edge):
+        <span style="color: #a0522d;">x1</span>, <span style="color: #a0522d;">y1</span> = edge.start.x, edge.start.y
+        <span style="color: #a0522d;">x2</span>, <span style="color: #a0522d;">y2</span> = edge.end.x, edge.end.y
+        <span style="color: #a020f0;">self</span>.canvas.create_line(x1, y1, x2, y2)
+</pre>
+</div>
+
+<p>
+And that's it!
+</p>
+
+
+<div class="figure">
+<p><img src="images/edges.png" alt="edges.png" />
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Jason DeLaat</p>
+<p class="date">Created: 2021-02-21 Sun 10:04</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

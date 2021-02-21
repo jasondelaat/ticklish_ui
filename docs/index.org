@@ -1,0 +1,3 @@
+#+html_head: <script type='text/javascript'> onload = () => window.location.replace('/tutorials/drawing_graphs/tutorial-drawing-graphs.html') </script>
+
+
