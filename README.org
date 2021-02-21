@@ -125,7 +125,7 @@ app.mainloop()
      
      [[https://github.com/jasondelaat/ticklish_ui/raw/release/screenshots/readme_themes.png]]
 
-**** Documentation
+**** Module Documentation
      An attempt has been made to make the ~ticklish_ui~ module
      documentation as comprehensive as possible. It can be viewed in a
      number of ways.
@@ -147,6 +147,9 @@ pydoc3 ticklish_ui.widgets.application
     
      The github repository also includes a number of [[https://github.com/jasondelaat/ticklish_ui/tree/release/examples][examples]].
 
+**** Tutorial
+     A more in-depth example implementing a simple application for
+     drawing graphs can be found [[https://jasondelaat.github.io/ticklish_ui/tutorials/drawing_graphs/tutorial-drawing-graphs.html][here]].
 ** Features
 *** Widgets
    The following widgets are currently implemented. Widgets which are
