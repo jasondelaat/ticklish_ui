@@ -4,7 +4,7 @@
 #+html_head_extra: <style>body {margin : auto; width : 65%}</style>
 #+options: num:nil toc:nil
 
-The source code for this tutorial can be found [[file:src/][here]].
+The source code for this tutorial can be found [[https://github.com/jasondelaat/ticklish_ui/tree/release/docs/tutorials/drawing_graphs/src][here]].
 
 #+toc: headlines 3
 

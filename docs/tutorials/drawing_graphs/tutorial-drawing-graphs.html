@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2021-02-21 Sun 10:04 -->
+<!-- 2021-02-21 Sun 10:25 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tutorial - Drawing Graphs with <code>ticklish_ui</code></title>
@@ -233,36 +233,36 @@ for the JavaScript code in this tag.
 <div id="content">
 <h1 class="title">Tutorial - Drawing Graphs with <code>ticklish_ui</code></h1>
 <p>
-The source code for this tutorial can be found <a href="src/">here</a>.
+The source code for this tutorial can be found <a href="https://github.com/jasondelaat/ticklish_ui/tree/release/docs/tutorials/drawing_graphs/src">here</a>.
 </p>
 
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#orgcd4fc12">A note on function currying and <code>pymonad</code></a></li>
+<li><a href="#orgdc875c8">A note on function currying and <code>pymonad</code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#orgee9fa21">Program structure</a></li>
-<li><a href="#orgaff60cd">The <code>main.py</code> module</a></li>
-<li><a href="#org4ab1c06">Handling communication</a></li>
-<li><a href="#org6c77a05">Defining the UI</a></li>
-<li><a href="#orgfeb7b04">Adding Vertices</a>
+<li><a href="#org1240833">Program structure</a></li>
+<li><a href="#org0d2a26f">The <code>main.py</code> module</a></li>
+<li><a href="#orgc9016a9">Handling communication</a></li>
+<li><a href="#orgc037200">Defining the UI</a></li>
+<li><a href="#orgedbcb9f">Adding Vertices</a>
 <ul>
-<li><a href="#orgb78c680">Mapping and Filtering Streams</a></li>
-<li><a href="#org2f4a108">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
-<li><a href="#org4632293">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
-<li><a href="#org56248b8">The model and drawing vertices</a></li>
+<li><a href="#org099da42">Mapping and Filtering Streams</a></li>
+<li><a href="#org60fbde4">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
+<li><a href="#org8df1708">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</a></li>
+<li><a href="#orgd256563">The model and drawing vertices</a></li>
 </ul>
 </li>
-<li><a href="#org4b6cc2a">Selecting vertices and adding edges</a></div>
+<li><a href="#orgb6f114a">Selecting vertices and adding edges</a></div>
 </div>
 
-<div id="outline-container-orgcd4fc12" class="outline-4">
-<h4 id="orgcd4fc12">A note on function currying and <code>pymonad</code></h4>
-<div class="outline-text-4" id="text-orgcd4fc12">
+<div id="outline-container-orgdc875c8" class="outline-4">
+<h4 id="orgdc875c8">A note on function currying and <code>pymonad</code></h4>
+<div class="outline-text-4" id="text-orgdc875c8">
 <p>
 <code>pymonad</code> is a package for monadic style functional programming in
 python. 
@@ -346,9 +346,9 @@ the event code.
 </div>
 </div>
 
-<div id="outline-container-orgee9fa21" class="outline-2">
-<h2 id="orgee9fa21">Program structure</h2>
-<div class="outline-text-2" id="text-orgee9fa21">
+<div id="outline-container-org1240833" class="outline-2">
+<h2 id="org1240833">Program structure</h2>
+<div class="outline-text-2" id="text-org1240833">
 <p>
 The program uses the <a href="https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter">Model-View-Presenter</a> architectural pattern and
 consists of four files:
@@ -365,9 +365,9 @@ implemented using <code>ticklish_ui</code></dd>
 </div>
 </div>
 
-<div id="outline-container-orgaff60cd" class="outline-2">
-<h2 id="orgaff60cd">The <code>main.py</code> module</h2>
-<div class="outline-text-2" id="text-orgaff60cd">
+<div id="outline-container-org0d2a26f" class="outline-2">
+<h2 id="org0d2a26f">The <code>main.py</code> module</h2>
+<div class="outline-text-2" id="text-org0d2a26f">
 <p>
 We'll start with the easy stuff: <code>main.py</code>'s only job is to load
 the Presenter, Graph, and GraphView classes, initialize them and
@@ -391,9 +391,9 @@ Of course, none of those exist yet, so let's move on!
 </div>
 </div>
 
-<div id="outline-container-org4ab1c06" class="outline-2">
-<h2 id="org4ab1c06">Handling communication</h2>
-<div class="outline-text-2" id="text-org4ab1c06">
+<div id="outline-container-orgc9016a9" class="outline-2">
+<h2 id="orgc9016a9">Handling communication</h2>
+<div class="outline-text-2" id="text-orgc9016a9">
 <p>
 The job of the <code>Presenter</code> class is to handle communication between
 the view and the model. The view and the model can't communicate
@@ -450,9 +450,9 @@ they happen.
 </div>
 </div>
 
-<div id="outline-container-org6c77a05" class="outline-2">
-<h2 id="org6c77a05">Defining the UI</h2>
-<div class="outline-text-2" id="text-org6c77a05">
+<div id="outline-container-orgc037200" class="outline-2">
+<h2 id="orgc037200">Defining the UI</h2>
+<div class="outline-text-2" id="text-orgc037200">
 <p>
 The <code>GraphView</code> class defines our actual GUI.
 </p>
@@ -509,9 +509,9 @@ on your system.
 </div>
 </div>
 
-<div id="outline-container-orgfeb7b04" class="outline-2">
-<h2 id="orgfeb7b04">Adding Vertices</h2>
-<div class="outline-text-2" id="text-orgfeb7b04">
+<div id="outline-container-orgedbcb9f" class="outline-2">
+<h2 id="orgedbcb9f">Adding Vertices</h2>
+<div class="outline-text-2" id="text-orgedbcb9f">
 <p>
 Alright, let's make this actually do something. We want to add a
 vertex to the graph when we click on the canvas, if the
@@ -538,9 +538,9 @@ and, like before, we use <code>get_event_stream</code> to do it.
 </div>
 </div>
 
-<div id="outline-container-orgb78c680" class="outline-3">
-<h3 id="orgb78c680">Mapping and Filtering Streams</h3>
-<div class="outline-text-3" id="text-orgb78c680">
+<div id="outline-container-org099da42" class="outline-3">
+<h3 id="org099da42">Mapping and Filtering Streams</h3>
+<div class="outline-text-3" id="text-org099da42">
 <p>
 When we have an event stream we use the <code>filter</code> and <code>map</code> methods
 to create new streams from old ones adding behaviours as we
@@ -573,9 +573,9 @@ we won't need that for this application.
 </div>
 </div>
 
-<div id="outline-container-org2f4a108" class="outline-3">
-<h3 id="org2f4a108">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
-<div class="outline-text-3" id="text-org2f4a108">
+<div id="outline-container-org60fbde4" class="outline-3">
+<h3 id="org60fbde4">Sending the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
+<div class="outline-text-3" id="text-org60fbde4">
 <p>
 Here's the code to send <code>&lt;&lt;AddVertex&gt;&gt;</code> to <code>Presenter</code>.
 </p>
@@ -688,9 +688,9 @@ to give event handlers extra arguments.
 </div>
 </div>
 
-<div id="outline-container-org4632293" class="outline-3">
-<h3 id="org4632293">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
-<div class="outline-text-3" id="text-org4632293">
+<div id="outline-container-org8df1708" class="outline-3">
+<h3 id="org8df1708">Handling the <code>&lt;&lt;AddVertex&gt;&gt;</code> event</h3>
+<div class="outline-text-3" id="text-org8df1708">
 <p>
 When the <code>&lt;&lt;AddVertex&gt;&gt;</code> event stream in <code>Presenter</code> gets an
 event it needs to do three things:
@@ -758,9 +758,9 @@ makes sense to get the job done.
 </div>
 </div>
 
-<div id="outline-container-org56248b8" class="outline-3">
-<h3 id="org56248b8">The model and drawing vertices</h3>
-<div class="outline-text-3" id="text-org56248b8">
+<div id="outline-container-orgd256563" class="outline-3">
+<h3 id="orgd256563">The model and drawing vertices</h3>
+<div class="outline-text-3" id="text-orgd256563">
 <p>
 The model for our graphing application is very simple and fairly
 self explanatory. It tracks a list of vertices, a list of edges,
@@ -854,9 +854,9 @@ We should now be able to add vertices to our graph!
 </div>
 </div>
 
-<div id="outline-container-org4b6cc2a" class="outline-2">
-<h2 id="org4b6cc2a">Selecting vertices and adding edges</h2>
-<div class="outline-text-2" id="text-org4b6cc2a">
+<div id="outline-container-orgb6f114a" class="outline-2">
+<h2 id="orgb6f114a">Selecting vertices and adding edges</h2>
+<div class="outline-text-2" id="text-orgb6f114a">
 <p>
 There's nothing drastically different about handling the remaining
 functionality so we'll go over it fairly quickly.
@@ -1017,7 +1017,7 @@ And that's it!
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Jason DeLaat</p>
-<p class="date">Created: 2021-02-21 Sun 10:04</p>
+<p class="date">Created: 2021-02-21 Sun 10:25</p>
 <p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
