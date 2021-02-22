@@ -100,5 +100,6 @@ from ticklish_ui.widgets.factories import *
 from ticklish_ui.widgets.frames import *
 from ticklish_ui.widgets.label import *
 from ticklish_ui.widgets.listbox import *
+from ticklish_ui.widgets.progressbar import *
 from ticklish_ui.widgets.radiobuttons import *
 from ticklish_ui.widgets.toplevel import *
