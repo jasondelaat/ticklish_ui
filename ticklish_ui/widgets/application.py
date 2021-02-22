@@ -55,6 +55,44 @@ class Application(ContainerFactory, tk.Tk):
         self.title(title)
         self.style = ttk.Style()
         self.style.theme_use('default')
+        self.event_streams = {}
+
+    def event_generate(self, sequence, **args):
+        """Overrides Tk.event_generate() to allow virtual event user data.
+
+        The underlying tcl/tk implementation allows for user data to
+        be attached to virtual events when generated. Tkinter,
+        however, does not support this functionality.
+
+        This override allows users to attach user data to virtual
+        events when using event streams by intercepting the event,
+        attaching the data and then inserting it into the stream. If
+        not using event streams to handle events, this method simply
+        falls back on Tk.event_generate() and custom user data will
+        not work.
+
+        Example:
+            app = Application('User Data')
+            app.get_event_stream('<<MyEvent>>').map(lambda e: print(e.data))
+            app.event_generate('<<MyEvent>>', data=['this', 'is', 'my', 'data'])
+            app.event_generate('<<MyEvent>>', data='any kind of data works')
+            app.mainloop()
+
+        The 'data' can be anything.
+        """
+        stream = self.event_streams.get(sequence, None)
+        if (stream and sequence.startswith('<<') and 'data' in args):
+            data = args['data']
+            del args['data']
+
+            def stream_handler(event):
+                event.data = data
+                stream.insert(event)
+
+            self.bind_all(sequence, stream_handler)
+        elif stream and sequence.startswith('<<'):
+            self.bind_all(sequence, stream.insert)
+        super().event_generate(sequence, **args)
 
     def get_event_stream(self, event_sequence):
         """Bind an event stream to the Application.
@@ -71,8 +109,11 @@ class Application(ContainerFactory, tk.Tk):
             An EventStream object.
 
         """
-        stream = events.EventStream()
-        self.bind_all(event_sequence, stream.insert)
+        stream = self.event_streams.get(event_sequence, None)
+        if not stream:
+            stream = events.EventStream()
+            self.event_streams[event_sequence] = stream
+            self.bind_all(event_sequence, stream.insert)
         return stream
 
     def menubar(self, *menus):
