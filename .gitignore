@@ -7,3 +7,4 @@ examples/ticklish_ui
 build/*
 dist/*
 README.md
+.chglog/*
