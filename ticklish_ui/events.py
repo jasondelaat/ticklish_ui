@@ -221,10 +221,15 @@ class EventStream(Stream):
         Arguments:
             widget_class - a string, the name of the widget class
                            either assigned automatically or by the
-                           'class_' option when creating the widget.
+                           'tags' option when creating the widget.
 
         Returns:
             A new Stream.
 
         """
-        return self.filter(lambda e: e.widget.winfo_class() == widget_class)
+        def handler(event):
+            try:
+                return widget_class in event.widget.bindtags()
+            except AttributeError:
+                return False
+        return self.filter(handler)

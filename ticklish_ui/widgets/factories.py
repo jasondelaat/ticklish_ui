@@ -45,7 +45,7 @@ class WidgetFactory:
     def __init__(self, widget_type):
         super().__init__()
         self.widget_type = widget_type
-        self.kwargs = {}
+        self.kwargs = {'tags' : ''}
 
     def options(self, **kwargs):
         """Set additional keyword options on widgets.
@@ -63,7 +63,11 @@ class WidgetFactory:
 
         """
         for key in kwargs:
-            self.kwargs[key] = kwargs[key]
+            if key == 'tags':
+                new_tags = ' '.join([self.kwargs['tags'], kwargs['tags']])
+                self.kwargs['tags'] = new_tags
+            else:
+                self.kwargs[key] = kwargs[key]
         return self
 
     def create_widget(self, parent):
@@ -76,7 +80,12 @@ class WidgetFactory:
             A new widget.
 
         """
-        return self.widget_type(parent, **self.kwargs)
+        tags = self.kwargs['tags'].strip().split(' ')
+        del self.kwargs['tags']
+        widget = self.widget_type(parent, **self.kwargs)
+        widget.tags = tags
+        widget.bindtags(tuple(tags) + widget.bindtags())
+        return widget
 
 class ContainerFactory(WidgetFactory):
     """Base class for widgets which contain other widgets.
@@ -97,17 +106,18 @@ class ContainerFactory(WidgetFactory):
         self.child_rows = rows
 
     def create_widget(self, parent):
+        tags = self.kwargs['tags']
+        del self.kwargs['tags']
         if self.widget_type:
             container = self.widget_type(parent, **self.kwargs)
         else:
             container = self
-
         count = 0
         for row in self.child_rows:
             count += 1
             frame = ttk.Frame(container, name=f'row{count}')
             frame.pack(fill=tk.BOTH)
             for factory in row:
-                widget = factory.create_widget(frame)
+                widget = factory.options(tags=tags).create_widget(frame)
                 widget.pack(side=tk.LEFT)
         return container
