@@ -106,18 +106,21 @@ class ContainerFactory(WidgetFactory):
         self.child_rows = rows
 
     def create_widget(self, parent):
-        tags = self.kwargs['tags']
+        tags_string = self.kwargs['tags']
+        tags = tuple(tags_string.strip().split(' '))
         del self.kwargs['tags']
         if self.widget_type:
             container = self.widget_type(parent, **self.kwargs)
+            container.bindtags(tags + container.bindtags())
         else:
             container = self
         count = 0
         for row in self.child_rows:
             count += 1
             frame = ttk.Frame(container, name=f'row{count}')
+            frame.bindtags(tags + frame.bindtags())
             frame.pack(fill=tk.BOTH)
             for factory in row:
-                widget = factory.options(tags=tags).create_widget(frame)
+                widget = factory.options(tags=tags_string).create_widget(frame)
                 widget.pack(side=tk.LEFT)
         return container
