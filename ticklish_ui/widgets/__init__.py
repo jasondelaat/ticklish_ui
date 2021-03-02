@@ -104,6 +104,7 @@ from ticklish_ui.widgets.notebook import *
 from ticklish_ui.widgets.panedwindow import *
 from ticklish_ui.widgets.progressbar import *
 from ticklish_ui.widgets.radiobuttons import *
+from ticklish_ui.widgets.separator import *
 from ticklish_ui.widgets.scale import *
 from ticklish_ui.widgets.scrollbars import *
 from ticklish_ui.widgets.text import *
