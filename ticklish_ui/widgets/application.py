@@ -142,7 +142,12 @@ class Application(ContainerFactory, tk.Tk):
                 if len(items) > 0:
                     menu = tk.Menu(parent_menu)
                     parent_menu.add_cascade(label=menu_label, menu=menu)
-                    self._add_menu_items(menu, menu_label, items)
+                    if parent_label == '':
+                        self._add_menu_items(menu, menu_label, items)
+                    else:
+                        self._add_menu_items(
+                            menu, f'{parent_label}-{menu_label}', items
+                        )
                 else:
                     parent_menu.add_command(
                         label=menu_label,
