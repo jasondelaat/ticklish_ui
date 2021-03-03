@@ -109,3 +109,4 @@ from ticklish_ui.widgets.scale import *
 from ticklish_ui.widgets.scrollbars import *
 from ticklish_ui.widgets.text import *
 from ticklish_ui.widgets.toplevel import *
+from ticklish_ui.widgets.treeview import *
