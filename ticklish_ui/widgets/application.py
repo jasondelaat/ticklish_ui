@@ -126,14 +126,32 @@ class Application(ContainerFactory, tk.Tk):
                      list of strings defining the items in the menu.
 
         """
+        try:
+            menu_definition = menus[0].finalize()
+        except AttributeError:
+            menu_definition = menus
+
         menubar = tk.Menu(self, name='menubar')
         self['menu'] = menubar
-        for menu_label, items in menus:
-            menu = tk.Menu(menubar)
-            menubar.add_cascade(label=menu_label, menu=menu)
-            for item in items:
-                menu.add_command(
-                    label=item, command=_menu_update(self, menu_label, item)
+        self._add_menu_items(menubar, '', menu_definition)
+
+    def _add_menu_items(self, parent_menu, parent_label, definitions):
+        for menu_def in definitions:
+            try:
+                menu_label, items = menu_def
+                if len(items) > 0:
+                    menu = tk.Menu(parent_menu)
+                    parent_menu.add_cascade(label=menu_label, menu=menu)
+                    self._add_menu_items(menu, menu_label, items)
+                else:
+                    parent_menu.add_command(
+                        label=menu_label,
+                        command=_menu_update(self, parent_label, menu_label)
+                    )
+            except ValueError:
+                parent_menu.add_command(
+                    label=menu_def,
+                    command=_menu_update(self, parent_label, menu_def)
                 )
 
     def menu_command(self, menu_selector, callback):
