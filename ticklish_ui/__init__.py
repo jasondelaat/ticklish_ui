@@ -81,5 +81,6 @@ Example:
     app.mainloop()
 
 """
-from ticklish_ui.widgets import *
 from ticklish_ui.events import *
+from ticklish_ui.menu_specification import *
+from ticklish_ui.widgets import *
