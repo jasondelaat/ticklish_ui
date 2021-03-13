@@ -172,9 +172,19 @@ pydoc3 ticklish_ui.widgets.application
    | Label              | tkinter.ttk.Label       | no                     |
    | LabelFrame         | tkinter.ttk.LabelFrame  | no                     |
    | Listbox            | tkinter.ttk.Treeview    | yes*                   |
+   | Notebook           | tkinter.ttk.Notebook    | no                     |
+   | PanedWindow        | tkinter.ttk.PanedWindow | no                     |
+   | Progressbar        | tkinter.ttk.Progressbar | no                     |
    | RadioGroup         | tkinter.ttk.Frame       | yes                    |
    | Radiobutton        | tkinter.ttk.Radiobutton | no                     |
+   | Scale              | tkinter.ttk.Scale       | no                     |
+   | Scrollable         | tkinter.Canvas          | yes                    |
+   | Scrollbar          | tkinter.ttk.Scrollbar   | no                     |
+   | Separator          | tkinter.ttk.Separator   | no                     |
+   | Text               | tkinter.Text            | no                     |
    | Toplevel           | tkinter.Toplevel        | no                     |
+   | Treeview           | tkinter.ttk.Treeview    | no                     |
+   |--------------------+-------------------------+------------------------|
    *These widgets are additions in the sense that they use specific
    settings to get a particular default behaviour but are otherwise
    just wrappers around the base widget.
