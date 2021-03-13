@@ -1,9 +1,37 @@
+# Changes
 
-<a name="v0.2.0"></a>
-## [v0.2.0](https://github.com/jasondelaat/ticklish_ui/compare/v0.1.3...v0.2.0) (2021-03-01)
+<a name="v0.3.0"></a>
+## [v0.3.0](https://github.com/jasondelaat/ticklish_ui/compare/v0.2.0...v0.3.0) (2021-03-13)
 
 ### Chore
 
+* Adds CHANGES.md to long_description for pypi
+* Updates README.org with newly added widgets
+
+### Docs
+
+* Adds a more complex application menu example
+* Adds Treeview example
+* Adds an example for the Separator widget
+
+### Feat
+
+* Adds Treeview widget
+* Changes menubar() to work with MenuSpecification objects
+* Adds MenuSpecification class for defining hierarchical menus.
+* Adds the Separator widget
+
+### Fix
+
+* Fixes Application.menubar() so nested menu entries are named properly
+
+
+<a name="v0.2.0"></a>
+## [v0.2.0](https://github.com/jasondelaat/ticklish_ui/compare/v0.1.3...v0.2.0) (2021-03-02)
+
+### Chore
+
+* Update to version 0.2.0
 * updates .gitignore
 
 ### Docs
